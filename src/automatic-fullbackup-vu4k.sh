@@ -127,8 +127,8 @@ mount --bind / /tmp/bi/root
 #dd if=/dev/$MTD_KERNEL of=$WORKDIR/kernel.dump
 #ADDR=$(getaddr $WORKDIR/kernel.dump 44)
 #dd if=$WORKDIR/kernel.dump of=$WORKDIR/$KERNELNAME bs=$ADDR count=1 && rm $WORKDIR/kernel.dump
-#dd if=/dev/$MTD_KERNEL of=$WORKDIR/$KERNELNAME > /dev/null 2>&1
-echo "Kernel resides on /dev/$MTD_KERNEL\n" 
+echo "Kernel resides on /dev/$MTD_KERNEL\n"
+dd if=/dev/$MTD_KERNEL of=$WORKDIR/$KERNELNAME > /dev/null 2>&1
 
 echo "Start creating rootfs.tar\n"
 #$MKFS -jcf $WORKDIR/$ROOTFSTYPE -C /tmp/bi/root .
