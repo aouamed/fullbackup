@@ -70,6 +70,10 @@ if [ -f /proc/stb/info/vumodel ] ; then
 		echo "Found VU+ Ultimo 4K\n"
 		MTD_KERNEL="mmcblk0p1"
 		KERNELNAME="kernel_auto.bin"
+	elif [ $MODEL = "zero4k" ] ; then
+		echo "Found VU+ Zero 4K\n"
+		MTD_KERNEL="mmcblk0p4"
+		KERNELNAME="kernel_auto.bin"
 	else
 		echo "No supported receiver found!\n"
 		exit 0
@@ -145,7 +149,7 @@ if [ $TYPE = "VU" ] ; then
 	mv "$WORKDIR/$KERNELNAME" "$MAINDEST/$KERNELNAME"
 	mv "$WORKDIR/$ROOTFSTYPE" "$MAINDEST/$ROOTFSTYPE"
 	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
-	if [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] ; then
+	if [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
 	else
 		echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
