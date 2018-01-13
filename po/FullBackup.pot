@@ -354,7 +354,7 @@ msgid "Friday"
 msgstr ""
 
 #: plugin.py:1687
-msgid "Full backup for all recievers"
+msgid "Full backup for all receivers"
 msgstr ""
 
 #: plugin.py:336
@@ -662,7 +662,7 @@ msgid ""
 msgstr ""
 
 #: plugin.py:468 plugin.py:534 plugin.py:575
-msgid "Your reciever not supported!"
+msgid "Your receiver not supported!"
 msgstr ""
 
 #: plugin.py:113

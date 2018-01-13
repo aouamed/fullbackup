@@ -407,7 +407,7 @@ msgid "Friday"
 msgstr "penktadienis"
 
 #: plugin.py:1687
-msgid "Full backup for all recievers"
+msgid "Full backup for all receivers"
 msgstr "Visų imtuvų pilna atsarginė kopija"
 
 #: plugin.py:336
@@ -738,7 +738,7 @@ msgstr ""
 "%s"
 
 #: plugin.py:468 plugin.py:534 plugin.py:575
-msgid "Your reciever not supported!"
+msgid "Your receiver not supported!"
 msgstr "Jūsų imtuvui netinkama!"
 
 #: plugin.py:113

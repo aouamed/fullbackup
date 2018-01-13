@@ -416,7 +416,7 @@ msgid "Friday"
 msgstr "Vendredi"
 
 #: plugin.py:1687
-msgid "Full backup for all recievers"
+msgid "Full backup for all receivers"
 msgstr "Sauvegarde complète de tous les récepteurs"
 
 #: plugin.py:336
@@ -749,7 +749,7 @@ msgstr ""
 "pour être compatible avec Bootoptions!"
 
 #: plugin.py:468 plugin.py:534 plugin.py:575
-msgid "Your reciever not supported!"
+msgid "Your receiver not supported!"
 msgstr "Votre récepteur ne le supporte pas!"
 
 #: plugin.py:113

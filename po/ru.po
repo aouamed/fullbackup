@@ -148,7 +148,7 @@ msgstr "Для прошивки Вашего ресивера необходим
 msgid "Friday"
 msgstr "Пятница"
 
-msgid "Full backup for all recievers"
+msgid "Full backup for all receivers"
 msgstr "Полный бекап/прошивка для всех ресиверов"
 
 msgid "FullBackup Configuration"
@@ -323,7 +323,7 @@ msgstr ""
 msgid "Your STB will freeze during the flashing process.\n"
 msgstr "Ваш STB будет заблокирован на время процесса быстрой прошивки.\n"
 
-msgid "Your reciever not supported!"
+msgid "Your receiver not supported!"
 msgstr "Ваш ресивер не поддерживается!"
 
 msgid "cleanup disabled"
