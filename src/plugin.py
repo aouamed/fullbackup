@@ -273,7 +273,7 @@ def runBackup():
 			if cmd:
 				os.system(cmd)
 			else:
-				print "[FullBackup] not supported reciever!"
+				print "[FullBackup] not supported receiver!"
 				return
 		except Exception, e:
 			print "[FullBackup] FAIL:", e
@@ -465,7 +465,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 			if found_dir:
 				files = "^.*\.zip"
 				if BOX_NAME == 'none':
-					self.session.open(MessageBox, _("Your reciever not supported!"), MessageBox.TYPE_ERROR)
+					self.session.open(MessageBox, _("Your receiver not supported!"), MessageBox.TYPE_ERROR)
 					return
 				if BOX_NAME == 'all':
 					files = "^.*\.(zip|bin)"
@@ -531,7 +531,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 
 	def flashimage(self):
 		if BOX_NAME == 'none' or BOX_NAME == 'dmm':
-			self.session.open(MessageBox, _("Your reciever not supported!"), MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, _("Your receiver not supported!"), MessageBox.TYPE_ERROR)
 			return
 		if fileExists("/omb/open-multiboot") and os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
 			self.session.open(MessageBox, _("Sorry!\nThis boot is not flash image!"), MessageBox.TYPE_ERROR)
@@ -572,7 +572,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 			self["status"].setText(_('Not selected directory backup'))
 			return
 		if MODEL_NAME == "none":
-			self.session.open(MessageBox, _("Your reciever not supported!"), MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, _("Your receiver not supported!"), MessageBox.TYPE_ERROR)
 			return
 		if not check_hdd(config.plugins.fullbackup.where.value):
 			return
@@ -1688,7 +1688,7 @@ def start_filescan(**kwargs):
 			openfnc = filescan_open,
 		)
 
-description = _("Full backup for all recievers") + PLUGIN_VERSION
+description = _("Full backup for all receivers") + PLUGIN_VERSION
 
 def Plugins(**kwargs):
 	return [

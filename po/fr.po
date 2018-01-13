@@ -1,0 +1,838 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-13 18:11+0300\n"
+"PO-Revision-Date: 2018-01-12 19:44+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"Last-Translator: Pr2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: plugin.py:1200
+#, python-format
+msgid ""
+"\n"
+"Pack in zip archive current folder and add to '%s' OMB?"
+msgstr ""
+"\n"
+"Compresser dans une archive zip le répertoire courant et ajouter dans ‘%s’ "
+"OMB?"
+
+#: plugin.py:871 plugin.py:1178
+msgid ""
+"\n"
+"The found files:"
+msgstr ""
+"\n"
+"Les fichiers trouvés:"
+
+#: plugin.py:828
+#, python-format
+msgid ""
+"\n"
+"You are using  built-in multiboot from %s sections!"
+msgstr ""
+"\n"
+"Vous utilisez  le multiboot interne des sections %s!"
+
+#: plugin.py:826
+msgid ""
+"\n"
+"You are using dual multiboot!"
+msgstr ""
+"\n"
+"Vous utilisez un multiboot double!"
+
+#: plugin.py:877 plugin.py:1188
+#, python-format
+msgid "  %s (maybe error)"
+msgstr "  %s (peut être erreur)"
+
+#: plugin.py:874 plugin.py:1182 plugin.py:1185
+#, python-format
+msgid "  %s (maybe ok)"
+msgstr "  %s (peut être ok)"
+
+#: MultiBootSwitcher.py:270
+msgid " (unknown mode)"
+msgstr " (mode inconnu)"
+
+#: plugin.py:599 plugin.py:1628
+msgid " - OK show/nide"
+msgstr " - OK afficher/masquer"
+
+#: plugin.py:585 plugin.py:586 plugin.py:1591
+msgid " as recovery"
+msgstr " comme récupération"
+
+#: plugin.py:880 plugin.py:1191
+msgid " nothing!"
+msgstr " rien!"
+
+#: plugin.py:49
+msgid " ver. "
+msgstr " ver. "
+
+#: plugin.py:1228
+#, python-format
+msgid "'%s' archive was successfully added to '%s' OMB!"
+msgstr "l’archive %s a été ajoutée avec succès à ‘%s’ OMB!"
+
+#: plugin.py:1025
+msgid "'ofgwrite' not installed!"
+msgstr "‘ofgwrite’ pas installé!"
+
+#: plugin.py:1202
+msgid "'zip' not installed!"
+msgstr "‘zip’ pas installé!"
+
+#: MultiBootSwitcher.py:92
+msgid ""
+"*** boxmode=1 (Standard) ***\n"
+"\n"
+"+++ Features +++\n"
+"3840x2160p60 10-bit HEVC, 3840x2160p60 8-bit VP9, 1920x1080p60 8-bit AVC,\n"
+"MAIN only (no PIP), Limited display usages, UHD only (no SD),\n"
+"No multi-PIP, No transcoding\n"
+"\n"
+"--- Restrictions ---\n"
+"Decoder 0: 3840x2160p60 10-bit HEVC, 3840x2160p60 8-bit VP9, 1920x1080p60 8-"
+"bit AVC\n"
+"OSD Grafic 0: 1080p60 32 bit ARGB\n"
+"Display 0 Encode Restrictions: 3840x2160p60 12-bit 4:2:0 (HDMI),\n"
+"3840x2160p60 12-bit 4:2:2 (HDMI), 3840x2160p60 8-bit 4:4:4 (HDMI),\n"
+"1920x1080p60 (component), Only one display format at a time\n"
+"\n"
+"If you want 1080p60 component, HDMI also needs to be 1080p60."
+msgstr ""
+"*** boxmode=1 (Standard) ***\n"
+"\n"
+"+++ Caractéristiques +++\n"
+"3840x2160p60 10-bit HEVC, 3840x2160p60 8-bit VP9, 1920x1080p60 8-bit AVC,\n"
+"Seulement l’écran principal (pas de PiP), Utilisation de l’image limitée, "
+"UHD seulement (pas de SD),\n"
+"Pas de multi-PIP, Pas de transcodage\n"
+"\n"
+"— Restrictions —\n"
+"Decoder 0: 3840x2160p60 10-bit HEVC, 3840x2160p60 8-bit VP9, 1920x1080p60 8-"
+"bit AVC\n"
+"OSD Grafic 0: 1080p60 32 bit ARGB\n"
+"Display 0 Encode Restrictions: 3840x2160p60 12-bit 4:2:0 (HDMI),\n"
+"3840x2160p60 12-bit 4:2:2 (HDMI), 3840x2160p60 8-bit 4:4:4 (HDMI),\n"
+"1920x1080p60 (component), un seul format d’affichage à la fois\n"
+"\n"
+"Si vous voulez le composant 1080p60, l’HDMI doit aussi être en 1080p60."
+
+#: MultiBootSwitcher.py:101
+msgid ""
+"*** boxmode=12 (Experimental) ***\n"
+"\n"
+"+++ Features +++\n"
+"3840x2160p50 10-bit decode for MAIN, 1080p25/50i PIP support, HDMI input (if "
+"available),\n"
+" UHD display only, No SD display, No transcoding\n"
+"\n"
+"--- Restrictions ---\n"
+"Decoder 0: 3840x2160p50 10-bit HEVC, 3840x2160p50 8-bit VP9,\n"
+"1920x1080p50 8-bit AVC/MPEG\n"
+"Decoder 1: 1920x1080p25/50i 10-bit HEVC, 1920x1080p25/50i 8-bit VP9/AVC/"
+"MPEG2,\n"
+"HDMI In (if available), 3840x2160p50\n"
+"OSD Graphic 0 (UHD): 1080p50 32-bit ARGB\n"
+"Window 0 (MAIN/UHD): Limited display capabilities, 1080i50 10-bit de-"
+"interlacing\n"
+"Multi-PIP mode (3x): Enigma2 supported no multi-PIP\n"
+"Window 1 (PIP/UHD) (Enigma2 PIP Mode): Up to 1/2 x 1/2 screen display, "
+"576i50 de-interlacing\n"
+"Display 0 (UHD) Encode Restrictions: 3840x2160p50"
+msgstr ""
+"*** boxmode=12 (Expérimental) ***\n"
+"\n"
+"+++ Caractéristiques +++\n"
+"3840x2160p50 10-bit decodage sur l’écran principal, 1080p25/50i support du "
+"PiP, entrée HDMI-in (si disponible),\n"
+" affichage UHD uniquement, pas d’affichage SD, Pas de transcodage\n"
+"\n"
+"— Restrictions —\n"
+"Decoder 0: 3840x2160p50 10-bit HEVC, 3840x2160p50 8-bit VP9,\n"
+"1920x1080p50 8-bit AVC/MPEG\n"
+"Decoder 1: 1920x1080p25/50i 10-bit HEVC, 1920x1080p25/50i 8-bit VP9/AVC/"
+"MPEG2,\n"
+"HDMI In (si disponible), 3840x2160p50\n"
+"OSD Graphic 0 (UHD): 1080p50 32-bit ARGB\n"
+"Window 0 (MAIN/UHD): capacité d’affichage limitée, 1080i50 10-bit de-"
+"interlacing\n"
+"Multi-PIP mode (3x): Enigma2 ne supporte pas le multi-PIP\n"
+"Window 1 (PIP/UHD) (Enigma2 PIP Mode): jusqu’à 1/2 x 1/2 écran d’affichage, "
+"576i50 de-interlacage\n"
+"Display 0 (UHD) Encode Restrictions: 3840x2160p50"
+
+#: MultiBootSwitcher.py:194
+msgid "2160p50 with PiP"
+msgstr "2160p50 avec PiP"
+
+#: MultiBootSwitcher.py:194
+msgid "2160p60 without PiP (default)"
+msgstr "2160p60 sans PiP (défaut)"
+
+#: plugin.py:369
+msgid "< Needs create file *(any name).fbackup in USB device >"
+msgstr ""
+"< Besoin de créer un fichier *(n’importe quel nom).fbackup sur le "
+"périphérique USB >"
+
+#: plugin.py:928
+msgid ""
+"A recording is currently running. Please stop the recording before trying to "
+"start a flashing."
+msgstr ""
+"Une enregistrement est en cours. Merci d’arrêter l’enregistrement avant "
+"d’essayer de démarrer un flashage."
+
+#: plugin.py:185
+msgid ""
+"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 1500Mb free space!"
+msgstr ""
+"AFB\n"
+"Pas assez d’espace libre sur le périphérique!\n"
+"Vous avez besoin d’au moins 1500Mb d’espace libre!"
+
+#: plugin.py:190
+msgid ""
+"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 300Mb free space!"
+msgstr ""
+"AFB\n"
+"Pas assez d’espace libre sur le périphérique!\n"
+"Vous avez besoin d’au moins 300Mb d’espace libre!"
+
+#: plugin.py:180
+msgid ""
+"AFB\n"
+"Not found mount device for create full backup!"
+msgstr ""
+"AFB\n"
+"Pas trouvé de périphériqué monté sur lequel faire une sauvegarde complète!"
+
+#: plugin.py:1125 plugin.py:1134 plugin.py:1140
+msgid "Add to OMB"
+msgstr "Ajouter à OMB"
+
+#: MultiBootSwitcher.py:446
+msgid "Alternative Image 1 partition for boot repair not found."
+msgstr "La partition de boot pour l’image alternative 1 n’a pas été trouvée."
+
+#: plugin.py:1699
+msgid "Automatic Full Backup"
+msgstr "Sauvegarde Complète Automatique (AFB)"
+
+#: plugin.py:362
+msgid "Automatic cleanup backups"
+msgstr "Nettoyage automatique des sauvegardes"
+
+#: plugin.py:367
+msgid "Automatic full backup"
+msgstr "Sauvegarde complète automatique"
+
+#: plugin.py:359
+msgid "Automatic start time"
+msgstr "Heure de démarrage automatique"
+
+#: plugin.py:580 plugin.py:585
+msgid "Background mode"
+msgstr "Mode d'arrière-plan"
+
+#: plugin.py:366
+msgid "Backup location"
+msgstr "Emplacement de la sauvegarde"
+
+#: plugin.py:361
+msgid "Behaviour in deep standby"
+msgstr "Comportement en mode veille profonde"
+
+#: MultiBootSwitcher.py:444
+#, python-format
+msgid "Can not repair file %s"
+msgstr "Ne peut pas réparer le fichier %s"
+
+#: MultiBootSwitcher.py:450
+#, python-format
+msgid "Can not write file %s"
+msgstr "Impossible d’écrire le fichier %s"
+
+#: MultiBootSwitcher.py:48 plugin.py:379 plugin.py:712 plugin.py:1073
+#: plugin.py:1538
+msgid "Cancel"
+msgstr "Annuler"
+
+#: MultiBootSwitcher.py:444 MultiBootSwitcher.py:446 MultiBootSwitcher.py:450
+#: MultiBootSwitcher.py:456
+msgid "Caution, next boot is starts with these settings!"
+msgstr "Attention, le prochain démarrage utilisera ces paramètres!"
+
+#: plugin.py:360
+msgid "Choice days for create backup"
+msgstr "Choisir le jour pour créer une sauvegarde"
+
+#: MultiBootSwitcher.py:457
+msgid "Command line error!"
+msgstr "Erreur de ligne de commande!"
+
+#: plugin.py:599 plugin.py:1628
+msgid "Console log"
+msgstr "Log de la console"
+
+#: plugin.py:581 plugin.py:586
+msgid "Console mode"
+msgstr "Mode console"
+
+#: plugin.py:1683
+msgid "Create a full backup image"
+msgstr "Créer une image de sauvegarde complète"
+
+#: plugin.py:589
+msgid "Create backup"
+msgstr "Créer un backup"
+
+#: MultiBootSwitcher.py:282
+#, python-format
+msgid "Current bootsettings: %s (%s)%s"
+msgstr "Paramètres actuels de démarrage: %s (%s)%s"
+
+#: MultiBootSwitcher.py:85
+#, python-format
+msgid "Current load boxmode: %s"
+msgstr "Boxmode de démarrage actuel: %s"
+
+#: plugin.py:1551
+msgid "Days Profile"
+msgstr "Profile des jours"
+
+#: plugin.py:517
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: plugin.py:1592 plugin.py:1594 plugin.py:1596
+#, python-format
+msgid "Do you really want to create a full backup in directory %s ?"
+msgstr ""
+"Voulez-vous vraiment créer une sauvegarde complète dans le répertoire %s ?"
+
+#: plugin.py:689
+msgid "Do you really want to stop the creation of backup?"
+msgstr "Voulez-vous vraiment arrêter la création de la sauvegarde?"
+
+#: plugin.py:1044 plugin.py:1248
+#, python-format
+msgid "Do you really want to unpack %s ?"
+msgstr "Voulez-vous vraiment décompresser %s?"
+
+#: MultiBootSwitcher.py:437
+msgid "Do you want to reboot now with selected image?"
+msgstr "Voulez-vous redémarrer maintenant sur l’image choisie?"
+
+#: MultiBootSwitcher.py:447 MultiBootSwitcher.py:451 MultiBootSwitcher.py:457
+msgid "Do you want to reboot now?"
+msgstr "Voulez-vous redémarrer maintenant?"
+
+#: plugin.py:624
+msgid "Done"
+msgstr "Terminé"
+
+#: plugin.py:1213
+msgid "Error creating zip archive!"
+msgstr "Erreur lors de la création d’un archive zip!"
+
+#: MultiBootSwitcher.py:456
+#, python-format
+msgid "Error in file %s"
+msgstr "Erreur dans le fichier %s"
+
+#: MultiBootSwitcher.py:388
+#, python-format
+msgid ""
+"Error reading image from file '/boot/%s'!\n"
+"Please flashing another image for this partition."
+msgstr ""
+"Erreur lors de la lecture de l’image du fichier ‘/boot/%s’!\n"
+"Merci de flasher une autre image sur cette partition."
+
+#: plugin.py:680
+msgid "Error unmounting devices!"
+msgstr "Erreur en démontant les périphériques!"
+
+#: plugin.py:668 plugin.py:918
+msgid "Exit"
+msgstr "Quitter"
+
+#: plugin.py:668
+msgid "Exit and eject device"
+msgstr "Quitter et éjecter le périphérique"
+
+#: plugin.py:622
+msgid "Failed"
+msgstr "Échoué"
+
+#: MultiBootSwitcher.py:394
+#, python-format
+msgid "File '/boot/%s' copy to '/boot/STARTUP' failed!"
+msgstr "Copie de ‘/boot/%s’ vers ‘/boot/STARTUP’ a échoué!"
+
+#: MultiBootSwitcher.py:154
+msgid "File not found - rename failed!"
+msgstr "Fichier non trouvé - renommage a échoué!"
+
+#: plugin.py:936
+msgid "Flashing: "
+msgstr "Flashage: "
+
+#: plugin.py:1146
+msgid "For backup your receiver files are needed:\n"
+msgstr "Pour sauvegarder votre récepteur les fichiers sont nécessaires:\n"
+
+#: plugin.py:838
+msgid "For flashing your receiver files are needed:\n"
+msgstr "Pour flasher votre récepteur les fichiers sont nécessaires:\n"
+
+#: plugin.py:910 plugin.py:992
+msgid "Fourth partition"
+msgstr "Quatrième partition"
+
+#: plugin.py:132
+msgid "Friday"
+msgstr "Vendredi"
+
+#: plugin.py:1687
+msgid "Full backup for all recievers"
+msgstr "Sauvegarde complète de tous les récepteurs"
+
+#: plugin.py:336
+msgid "FullBackup Configuration"
+msgstr "Configuration Sauvegarde Complète"
+
+#: MultiBootSwitcher.py:276
+#, python-format
+msgid "Image %s"
+msgstr "Image %s"
+
+#: plugin.py:1490
+msgid ""
+"In the next few seconds to start Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Run backup now?"
+msgstr ""
+"Pendant les prochaines secondes va démarrer la Sauvegarde Complète "
+"Automatique!\n"
+"L’option panneau de configuration ne sera pas accessible pendant 5-7 "
+"minutes.\n"
+"Démarrer le backup maintenant?"
+
+#: MultiBootSwitcher.py:288 plugin.py:226
+msgid "Install util-linux-blkid?"
+msgstr "Installer util-linux-blkid?"
+
+#: plugin.py:513
+msgid "Last backup date"
+msgstr "Date du dernier backup"
+
+#: plugin.py:381
+msgid "Manual"
+msgstr "Manuel"
+
+#: plugin.py:128
+msgid "Monday"
+msgstr "Lundi"
+
+#: MultiBootSwitcher.py:45
+msgid "MultiBoot STARTUP switcher"
+msgstr "Sélectionneur de DEMARRAGE du MultiBoot"
+
+#: plugin.py:1637
+msgid "MultiBoot switcher"
+msgstr "Sélectionneur MultiBoot"
+
+#: plugin.py:1000
+msgid "NOT found files for flashing!\n"
+msgstr "PAS de fichier trouvé pour flasher!\n"
+
+#: MultiBootSwitcher.py:156
+msgid "Name already exists - rename failed!"
+msgstr "Le nom existe déjà - le renommage a échoué!"
+
+#: MultiBootSwitcher.py:442
+msgid "Next boot will start from Image 1."
+msgstr "Le prochain démarrage utilisera l’image 1."
+
+#: plugin.py:1591
+msgid "No"
+msgstr "Non"
+
+#: plugin.py:508
+msgid "No backup present"
+msgstr "Pas de sauvegarde présente"
+
+#: plugin.py:503 plugin.py:572
+msgid "Not selected directory backup"
+msgstr "Pas de répertoire de sauvegarde sélectionné"
+
+#: plugin.py:888 plugin.py:956
+msgid "Only kernel"
+msgstr "Seulement le noyau"
+
+#: plugin.py:887 plugin.py:949
+msgid "Only root"
+msgstr "Seulement la racine"
+
+#: plugin.py:377
+msgid "Open multiBoot switcher"
+msgstr "Sélectionneur Open multiBoot"
+
+#: MultiBootSwitcher.py:132
+msgid "Please enter new name:"
+msgstr "Merci d’entrer un nouveau nom:"
+
+#: plugin.py:1206
+msgid ""
+"Please wait!\n"
+"Greating zip archive..."
+msgstr ""
+"Merci de patienter!\n"
+"Création de l’archive zip…"
+
+#: plugin.py:1018
+msgid "Please: DO NOT reboot your STB and turn off the power.\n"
+msgstr "Merci de: NE PAS redémarrer votre récepteur ou de l’éteindre.\n"
+
+#: plugin.py:97 plugin.py:138
+msgid "Press OK"
+msgstr "Appuyez sur OK"
+
+#: plugin.py:1668
+msgid "Read error current dir, sorry."
+msgstr "Erreur lors de la lecture du répertoire courant, désolé."
+
+#: MultiBootSwitcher.py:50
+msgid "Rename"
+msgstr "Renommer"
+
+#: MultiBootSwitcher.py:139
+msgid "Rename failed!"
+msgstr "Echec du renommage!"
+
+#: plugin.py:385
+msgid "Restore backup"
+msgstr "Restaurer une sauvegarde"
+
+#: plugin.py:805 plugin.py:821 plugin.py:832
+msgid "Run flash"
+msgstr "Exécuter un flash"
+
+#: plugin.py:611
+msgid "Running"
+msgstr "En cours"
+
+#: plugin.py:133
+msgid "Saturday"
+msgstr "Samedi"
+
+#: MultiBootSwitcher.py:49 plugin.py:380 plugin.py:1539
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: plugin.py:368
+msgid "Scan at automount for create backup"
+msgstr "Scan à automount pour créer une sauvegarde"
+
+#: plugin.py:900 plugin.py:974
+msgid "Second partition"
+msgstr "Deuxième partition"
+
+#: plugin.py:894 plugin.py:968
+msgid "Second partition (only kernel)"
+msgstr "Deuxième partition (seulement le noyau)"
+
+#: plugin.py:893 plugin.py:965
+msgid "Second partition (only root)"
+msgstr "Deuxième partition (seulement la racine)"
+
+#: plugin.py:892 plugin.py:962
+msgid "Second partition (root and kernel)"
+msgstr "Deuxième partition (racine et noyau)"
+
+#: MultiBootSwitcher.py:150 MultiBootSwitcher.py:326 MultiBootSwitcher.py:328
+#, python-format
+msgid "Select Image: %s"
+msgstr "Choisir Image: %s"
+
+#: plugin.py:667
+msgid "Select action:"
+msgstr "Choisir action:"
+
+#: plugin.py:1072
+msgid "Select backup for add to OpenMultiboot"
+msgstr "Choisir la sauvegarde à ajouter dans OpenMultiBoot"
+
+#: MultiBootSwitcher.py:316
+#, python-format
+msgid "Select bootoption: %s"
+msgstr "Définir l’option de démarrage: %s"
+
+#: MultiBootSwitcher.py:318
+msgid "Select bootoption: not supported - see info"
+msgstr "Définir l’option de démarrage: pas supporté - voir les info"
+
+#: plugin.py:837
+msgid "Select parameter for start flash!\n"
+msgstr "Choisir les paramètres pour démarrer le flashage!\n"
+
+#: plugin.py:711
+msgid "Select the folder with backup"
+msgstr "Choisir un répertoire avec sauvegarde"
+
+#: plugin.py:588
+msgid "Select the option to create a backup:"
+msgstr "Choisir l’option pour créer une sauvegarde:"
+
+#: plugin.py:363
+msgid "Show message during the start"
+msgstr "Afficher le message pendant le démarrage"
+
+#: plugin.py:376
+msgid "Show multiBoot switcher in menu shutdown"
+msgstr "Afficher le sélectionneur multiBoot dans le menu pour éteindre"
+
+#: plugin.py:1005
+msgid "Show only found image and mtd partitions.\n"
+msgstr "Afficher uniquement l’image trouvée et les partitions mtd.\n"
+
+#: plugin.py:885 plugin.py:939
+msgid "Simulate (no write)"
+msgstr "Simuler (pas d’écriture)"
+
+#: plugin.py:909 plugin.py:989
+msgid "Simulate fourth partition (no write)"
+msgstr "Simuler la quatrième partition (pas d’écriture)"
+
+#: plugin.py:891 plugin.py:899 plugin.py:959 plugin.py:971
+msgid "Simulate second partition (no write)"
+msgstr "Simuler la deuxième partition (pas d’écriture)"
+
+#: plugin.py:904 plugin.py:980
+msgid "Simulate third partition (no write)"
+msgstr "Simuler la troisième partition (pas d’écriture)"
+
+#: plugin.py:537
+msgid ""
+"Sorry!\n"
+"This boot is not flash image!"
+msgstr ""
+"Désolé!\n"
+"Ce boot n’est pas une image flash!"
+
+#: plugin.py:886 plugin.py:942
+msgid "Standard (root and kernel)"
+msgstr "Standard (racine et noyau)"
+
+#: plugin.py:1484
+msgid ""
+"Starting Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Please wait ..."
+msgstr ""
+"Démarrage de la Sauvegarde Complète Automatique!\n"
+"L’option panneau de contrôle ne sera pas disponible pendant 5-7 minutes.\n"
+"Merci de patienter…"
+
+#: plugin.py:134
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: plugin.py:678
+msgid "The device was successfully unmounted!"
+msgstr "Le périphérique a été démonté avec succès!"
+
+#: plugin.py:1019
+msgid "The image or kernel will be flashing and auto booted in few minutes.\n"
+msgstr ""
+"L’image ou le noyau sera flashé et démarrer automatiquement dans quelques "
+"minutes.\n"
+
+#: plugin.py:905 plugin.py:983
+msgid "Third partition"
+msgstr "Troisième partition"
+
+#: plugin.py:131
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: plugin.py:129
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: MultiBootSwitcher.py:278
+msgid "Unable to read image number"
+msgstr "Impossible de lire le numéro d’image"
+
+#: plugin.py:803 plugin.py:1041 plugin.py:1123 plugin.py:1245
+msgid "Unzip"
+msgstr "Unzip"
+
+#: plugin.py:829
+msgid ""
+"Warning!\n"
+"Use at your own risk! Make always a backup before use!\n"
+"Don't use it if you use multiple ubi volumes in ubi layer!"
+msgstr ""
+"Attention!\n"
+"Utiliser à votre propre risque! Toujours faire une sauvegarde avant "
+"d’utiliser!\n"
+"Ne pas utiliser si vous avez de multiple volumes ubi dans la couche ubi!"
+
+#: MultiBootSwitcher.py:298
+msgid "Warning!Please install util-linux-blkid."
+msgstr "Attention! Merci d’installer util-linux-blkid."
+
+#: plugin.py:130
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: MultiBootSwitcher.py:451
+msgid "Write error!"
+msgstr "Erreur d’écriture!"
+
+#: MultiBootSwitcher.py:447
+msgid "Wrong Bootsettings detected!"
+msgstr "Mauvais paramètre de démarrage détecté!"
+
+#: plugin.py:1591
+msgid "Yes"
+msgstr "Oui"
+
+#: plugin.py:1561
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"Vous ne pouvez pas utiliser ces paramètres!\n"
+"Au moins un jour de la semaine doit être sélectionné!"
+
+#: plugin.py:1017
+msgid "Your STB will freeze during the flashing process.\n"
+msgstr "Votre récepteur va se figer pendant le processus de flashage.\n"
+
+#: MultiBootSwitcher.py:123
+#, python-format
+msgid ""
+"Your box needs Bootloaderversion(s)\n"
+"\n"
+"%s\n"
+"\n"
+"to make compatible with Bootoptions!"
+msgstr ""
+"Votre récepteur a besoin de Bootloaderversion(s)\n"
+"\n"
+"%s\n"
+"\n"
+"pour être compatible avec Bootoptions!"
+
+#: plugin.py:468 plugin.py:534 plugin.py:575
+msgid "Your reciever not supported!"
+msgstr "Votre récepteur ne le supporte pas!"
+
+#: plugin.py:113
+msgid "cleanup disabled"
+msgstr "nettoyage désactivé"
+
+#: plugin.py:715 plugin.py:797 plugin.py:1076 plugin.py:1117
+#, python-format
+msgid "current:  %s"
+msgstr "actuel:  %s"
+
+#: plugin.py:99
+msgid "disabled"
+msgstr "désactivé"
+
+#: plugin.py:105
+msgid "no"
+msgstr "non"
+
+#: MultiBootSwitcher.py:328
+msgid "no image found"
+msgstr "aucune image trouvée"
+
+#: plugin.py:1011
+msgid "ofgwrite flashing ready.\n"
+msgstr "ofgwrite prêt à flasher.\n"
+
+#: plugin.py:1016
+msgid "ofgwrite will stop enigma2 now to run the flash.\n"
+msgstr "ofgwrite va maintenant arrêter enigma2 pour effectuer le flashage.\n"
+
+#: plugin.py:116
+msgid "older than 1 week"
+msgstr "plus vieux que 1 semaine"
+
+#: plugin.py:114
+msgid "older than 2 days"
+msgstr "plus vieux que 2 jours"
+
+#: plugin.py:117
+msgid "older than 2 weeks"
+msgstr "plus vieux que 2 semaines"
+
+#: plugin.py:115
+msgid "older than 3 days"
+msgstr "plus vieux que 3 jours"
+
+#: plugin.py:120
+msgid "older than 3 months"
+msgstr "plus vieux que 3 mois"
+
+#: plugin.py:118
+msgid "older than 3 weeks"
+msgstr "plus vieux que 3 semaines"
+
+#: plugin.py:119
+msgid "older than 4 weeks"
+msgstr "plus vieux que 4 semaines"
+
+#: MultiBootSwitcher.py:113
+msgid "placeholder message 2"
+msgstr "espace réservé message 2"
+
+#: plugin.py:1012
+msgid "please press exit to go back to the menu.\n"
+msgstr "merci d’appuyer sur exit pour revenir au menu.\n"
+
+#: plugin.py:106
+msgid "type info"
+msgstr "taper info"
+
+#: plugin.py:107
+msgid "type yes/no"
+msgstr "taper oui/non"
+
+#: MultiBootSwitcher.py:248
+msgid "unknown"
+msgstr "inconnu"
+
+#: plugin.py:101
+msgid "wake up and shutdown after backup"
+msgstr "réveiller et éteindre après la sauvegarde"
+
+#: plugin.py:100
+msgid "wake up for backup"
+msgstr "réveiller pour la sauvegarde"
