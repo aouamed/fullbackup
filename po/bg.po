@@ -1,0 +1,572 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-02-28 19:54+0100\n"
+"PO-Revision-Date: 2018-03-30 21:31+0300\n"
+"Language-Team: Bulgarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Мартин Петков <marto74bg@yahoo.co.uk>\n"
+"Language: bg\n"
+"X-Generator: Poedit 2.0.6\n"
+
+msgid ""
+"\n"
+"Backup only for NAS mounted to /media/net"
+msgstr ""
+"\n"
+"Бакъп само за NAS маунтнати в /media/net"
+
+msgid ""
+"\n"
+"Pack in zip archive current folder and add to '%s' OMB?"
+msgstr ""
+"\n"
+"Пакетиране в zip архив текущата папка и добавяне към '%s' OMB?"
+
+msgid ""
+"\n"
+"The found files:"
+msgstr ""
+"\n"
+"Открити файлове:"
+
+msgid ""
+"\n"
+"You are using  built-in multiboot from %s sections!"
+msgstr ""
+"\n"
+"Вие използвате вграден multiboot от %s раздела!"
+
+msgid ""
+"\n"
+"You are using dual multiboot!"
+msgstr ""
+"\n"
+"Бие използвате двоен multiboot!"
+
+msgid "  %s (maybe error)"
+msgstr "  %s (може би грешка)"
+
+msgid "  %s (maybe ok)"
+msgstr "  %s (може би е ок)"
+
+msgid " (unknown mode)"
+msgstr " (неизвестен режим)"
+
+msgid " - OK show/hide"
+msgstr " - ОК покажи/скрий"
+
+msgid " as recovery"
+msgstr " както 'Recovery'"
+
+msgid " nothing!"
+msgstr " нищо!"
+
+msgid " ver. "
+msgstr " вер. "
+
+msgid ""
+"\"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 1500Mb free space!"
+msgstr ""
+"\"AFB\n"
+"Недостатъчно свободно място на устройството!!\n"
+"Нужни са Ви минимум 1500 МБ свободно място!"
+
+msgid "'%s' archive was successfully added to '%s' OMB!"
+msgstr "'%s' архив беше успешно добавен в '%s' OMB!"
+
+msgid "'ofgwrite' not installed!"
+msgstr "'ofgwrite' не е инсъталиран!"
+
+msgid "'zip' not installed!"
+msgstr "'zip' не е инсталиран!"
+
+msgid "2160p50 with PiP"
+msgstr "2160p50 с PiP"
+
+msgid "2160p60 without PiP (default)"
+msgstr "2160p60 без PiP (по подразбиране)"
+
+msgid "< Needs create file *(any name).fbackup in USB device >"
+msgstr "< Необходим е файл *(което и да е име).fbackup в USB стика >"
+
+msgid ""
+"A recording is currently running. Please stop the recording before trying to "
+"start a flashing."
+msgstr "В момента тече запис. Моля спрете го, преди да започнете с флашването."
+
+msgid ""
+"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 300Mb free space!"
+msgstr ""
+"AFB\n"
+"Недостатъчно свободно място на устройството!\n"
+"Нужни са Ви минимум 300 МБ свободно място!"
+
+msgid ""
+"AFB\n"
+"Not found mount device for create full backup!"
+msgstr ""
+"AFB\n"
+"Не е открито монтирано устройство за създаването на пълен бакъп!"
+
+msgid "Add to OMB"
+msgstr "Добави към OMB"
+
+msgid "Alternative Image 1 partition for boot repair not found."
+msgstr ""
+"Алтернативен имидж от 1-вия дял за възстановяване на зареждането не е открит."
+
+msgid "Automatic cleanup backups"
+msgstr "Автоматично почистване на бакъпи"
+
+msgid "Automatic full backup"
+msgstr "Автоматичен пълен бакъп"
+
+msgid "Automatic start time"
+msgstr "Време за автоматично стартиране"
+
+msgid "Background mode"
+msgstr "Фонов режим"
+
+msgid "Backup location"
+msgstr "Местоположение за бакъп"
+
+msgid "Behaviour in deep standby"
+msgstr "Поведение при изключен приемник"
+
+msgid "Can not repair file %s"
+msgstr "Не може да се възстанови файл %s"
+
+msgid "Can not write file %s"
+msgstr "Не може да се презапише файл %s"
+
+msgid "Cancel"
+msgstr "Отмяна"
+
+msgid "Caution, next boot is starts with these settings!"
+msgstr "Внимание, следващото зареждане ще започне с тези настройки!"
+
+msgid "Choice days for create backup"
+msgstr "Избор на дни за създаване на бакъп"
+
+msgid "Command line error!"
+msgstr "Грешка в командния ред!"
+
+msgid "Console log"
+msgstr "Конзолен лог"
+
+msgid "Console mode"
+msgstr "Конзолен режим"
+
+msgid "Create a full backup image"
+msgstr "Създаване на пълен бакъп на имиджа"
+
+msgid "Create backup"
+msgstr "Създай бакъп"
+
+msgid "Current bootsettings: %s (%s)%s"
+msgstr "Текущи настройки: %s (%s)%s"
+
+msgid "Current load boxmode: %s"
+msgstr "Текущо зареден режим на приемника: %s"
+
+msgid "Daily automatic backup"
+msgstr "Ежедневен автоматичен бакъп"
+
+msgid "Days Profile"
+msgstr "Дневни Профили"
+
+msgid "Disabled"
+msgstr "Спрян"
+
+msgid "Do you really want to create a full backup in directory %s ?"
+msgstr "Наистина ли искате ли да създадете пълен бакъп в директория %s ?"
+
+msgid "Do you really want to stop the creation of backup?"
+msgstr "Наистина ли искате ли да спрете създаването на бакъпа?"
+
+msgid "Do you really want to unpack %s ?"
+msgstr "Наистина ли искате да разопаковате %s ?"
+
+msgid "Do you want to reboot now with selected image?"
+msgstr "Искате ли да рестартирате приемника с избрания имидж?"
+
+msgid "Do you want to reboot now?"
+msgstr "Искате ли да рестартирате сега?"
+
+msgid "Done"
+msgstr "Готово"
+
+msgid "Error creating zip archive!"
+msgstr "Грешка при създаването на zip архива!"
+
+msgid "Error in file %s"
+msgstr "Грешка във файл %s"
+
+msgid ""
+"Error reading image from file '/boot/%s'!\n"
+"Please flashing another image for this partition."
+msgstr ""
+"Грешка при четенето на имиджа от файл '/boot/%s'!\n"
+"Моля флашнете друг имидж за този дял."
+
+msgid "Error unmounting devices!"
+msgstr "Грешка при демонтирането на устройствата!"
+
+msgid "Exit"
+msgstr "Изход"
+
+msgid "Exit and eject device"
+msgstr "Изход и изваждане на устройството"
+
+msgid "Failed"
+msgstr "Грешка"
+
+msgid "File '/boot/%s' copy to '/boot/STARTUP' failed!"
+msgstr "Грешка при копиране на файла '/boot/%s' в '/boot/STARTUP' !"
+
+msgid "File not found - rename failed!"
+msgstr "Файла не е открит - грешка при преименуването!"
+
+msgid "Flashing: "
+msgstr "Флашване: "
+
+msgid "For backup your receiver files are needed:\n"
+msgstr "За бакъп на Вашия приемник са необходими файлове:\n"
+
+msgid "For flashing your receiver files are needed:\n"
+msgstr "За флашване на Вашия приемник са необходими файлове:\n"
+
+msgid "Fourth partition"
+msgstr "Четвърти дял"
+
+msgid "Friday"
+msgstr "Петък"
+
+msgid "Full backup for all recievers"
+msgstr "Пълен бакъп за всички приемници"
+
+msgid "FullBackup Configuration"
+msgstr "FullBackup Настройки"
+
+msgid "Harddisk"
+msgstr "Твърд диск"
+
+msgid "Image %s"
+msgstr "Имидж %s"
+
+msgid ""
+"In the next few seconds to start Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Run backup now?"
+msgstr ""
+"В следващите няколко секунди ще започне Автоматичен Пълен Бакъп!\n"
+"В течения на 5-7 минути управлението на приемника няма да бъде достъпно.\n"
+"Да изпълня ли бакъп сега?"
+
+msgid "Install util-linux-blkid?"
+msgstr "Инсталиране на util-linux-blkid?"
+
+msgid "Last backup date"
+msgstr "Дата на последния бакъп"
+
+msgid "Manual"
+msgstr "Ръчно"
+
+msgid "Monday"
+msgstr "Понеделник"
+
+msgid "MultiBoot STARTUP switcher"
+msgstr "MultiBoot - STARTUP селектор"
+
+msgid "MultiBoot switcher"
+msgstr "MultiBoot - селектор"
+
+msgid "NOT found files for flashing!\n"
+msgstr "НЕ са открити файлове за флашване!\n"
+
+msgid "Name already exists - rename failed!"
+msgstr "Името вече съществува - грешка при преименуване!"
+
+msgid "Next boot will start from Image 1."
+msgstr "Следващото зареждане ще започне с Имижд 1."
+
+msgid "No backup present"
+msgstr "Няма открит бакъпа"
+
+msgid "Not selected directory backup"
+msgstr "Не е избрана директория за бакъпа"
+
+msgid "Only kernel"
+msgstr "Само ядро"
+
+msgid "Only root"
+msgstr "Само имидж"
+
+msgid "Open multiBoot switcher"
+msgstr "Open multiBoot селектор"
+
+msgid "Please enter new name:"
+msgstr "Моля въведете ново име на имиджа:"
+
+msgid ""
+"Please wait!\n"
+"Greating zip archive..."
+msgstr ""
+"Моля изчакайте!\n"
+"Създава се zip архив..."
+
+msgid "Please: DO NOT reboot your STB and turn off the power.\n"
+msgstr "Моля: НЕ рестартирайте Вашия приемник и НЕ изключвайте захранването!\n"
+
+msgid "Press OK"
+msgstr "Натиснете ОК"
+
+msgid "Read error current dir, sorry."
+msgstr "Грешка при четене на текущата директория, извините."
+
+msgid "Rename"
+msgstr "Преименувай"
+
+msgid "Rename failed!"
+msgstr "Грешка при преименуване!"
+
+msgid "Restore backup"
+msgstr "Възстанови бакъп/имидж"
+
+msgid "Run flash"
+msgstr "Флашване"
+
+msgid "Running"
+msgstr "Извършва се"
+
+msgid "Saturday"
+msgstr "Събота"
+
+msgid "Save"
+msgstr "Запази"
+
+msgid "Scan at automount for create backup"
+msgstr "Сканиране при авто монтиране (създай бакъп)"
+
+msgid "Second partition"
+msgstr "Втори дял"
+
+msgid "Second partition (only kernel)"
+msgstr "Втори дял (само ядро)"
+
+msgid "Second partition (only root)"
+msgstr "Втори дял (само имидж)"
+
+msgid "Second partition (root and kernel)"
+msgstr "Втори дял (имидж и ядро)"
+
+msgid "Select Image: %s"
+msgstr "Избор на Имидж: %s"
+
+msgid "Select action:"
+msgstr "Изберете действие:"
+
+msgid "Select backup for add to OpenMultiboot"
+msgstr "Изберете бакъп за зареждане в OpenMultiboot"
+
+msgid "Select bootoption: %s"
+msgstr "Избор на настройките за зареждане: %s"
+
+msgid "Select bootoption: not supported - see info"
+msgstr "Настройки за зареждане: не се поддържат - виж инфо"
+
+msgid "Select parameter for start flash!\n"
+msgstr "Изберете параметър за стартиране на флашването!\n"
+
+msgid "Select the folder with backup"
+msgstr "Изберете папката с бакъпа"
+
+msgid "Select the option to create a backup:"
+msgstr "Изберете вариант за създаване на бакъп:"
+
+msgid "Show message during the start"
+msgstr "Показвай съобщение при начало на бакъпа"
+
+msgid "Show multiBoot switcher in menu shutdown"
+msgstr "Показвай 'MultiBoot - селектор' в менюто за изключване"
+
+msgid "Show only found image and mtd partitions.\n"
+msgstr "Показвай само открит имидж и mtd дялове.\n"
+
+msgid "Simulate (no write)"
+msgstr "Симулирай (без запис)"
+
+msgid "Simulate fourth partition (no write)"
+msgstr "Симулирай четвъртия дял (без запис)"
+
+msgid "Simulate second partition (no write)"
+msgstr "Симулирай втория дял (без запис)"
+
+msgid "Simulate third partition (no write)"
+msgstr "Симулирай третия дял (без запис)"
+
+msgid ""
+"Sorry!\n"
+"This boot is not flash image!"
+msgstr ""
+"Извинете!\n"
+"Това зареждане не е за имидж във флаша!"
+
+msgid "Standard (root and kernel)"
+msgstr "Стандарт (имидж и ядро)"
+
+msgid ""
+"Starting Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Run backup now?"
+msgstr ""
+"Започва Автоматичен Пълен Бакъп!\n"
+"В течение на 5-7 минути управлението на приемника няма да бъде достъпно.\n"
+"Да започне ли бакъп сега?"
+
+msgid "Sunday"
+msgstr "Неделя"
+
+msgid "The device was successfully unmounted!"
+msgstr "Устройството беше успешно демонтирано!"
+
+msgid "The image or kernel will be flashing and auto booted in few minutes.\n"
+msgstr ""
+"Имиджа или ядрото ще бъдат презаписани и приемника автоматично ще се "
+"рестартира след няколко минути.\n"
+
+msgid "Third partition"
+msgstr "Трети дял"
+
+msgid "Thursday"
+msgstr "Четвъртък"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Unable to read image number"
+msgstr "Не може да се прочете номера на имиджа"
+
+msgid "Unzip"
+msgstr "Разархивирай"
+
+msgid "Wake up from deep standby"
+msgstr "Включи от изключено положение"
+
+msgid ""
+"Warning!\n"
+"Use at your own risk! Make always a backup before use!\n"
+"Don't use it if you use multiple ubi volumes in ubi layer!"
+msgstr ""
+"Внимание!\n"
+"Използвайте на свой риск! Винаги правете бакъп преди използване!\n"
+"Не го използвайте, ако имате няколко ubi дяла!"
+
+msgid "Warning!Please install util-linux-blkid."
+msgstr "Внимание!Моля инсталирайте util-linux-blkid."
+
+msgid "Wednesday"
+msgstr "Сряда"
+
+msgid "Write error!"
+msgstr "Грешка при запис!"
+
+msgid "Wrong Bootsettings detected!"
+msgstr "Открита е неправилна настройка за зареждане!"
+
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"Не можете да използвате тези настройки!\n"
+"Поне един ден от седмицата трябва да бъде избран!"
+
+msgid "Your STB will freeze during the flashing process.\n"
+msgstr "Вашия приемник ще замръзне по време на флашването.\n"
+
+msgid ""
+"Your box needs Bootloaderversion(s)\n"
+"\n"
+"%s\n"
+"\n"
+"to make compatible with Bootoptions!"
+msgstr ""
+"За Вашия приемник е необходим Bootloader версия\n"
+"\n"
+"%s\n"
+"\n"
+"за съвместимост с настройките за зареждане!"
+
+msgid "Your reciever not supported!"
+msgstr "Вашия приемник не се поддържа!"
+
+msgid "cleanup disabled"
+msgstr "почистването е спряно"
+
+msgid "current:  %s"
+msgstr "текуща:  %s"
+
+msgid "disabled"
+msgstr "спрян"
+
+msgid "no"
+msgstr "не"
+
+msgid "no image found"
+msgstr "не е открит имидж"
+
+msgid "ofgwrite flashing ready.\n"
+msgstr "'ofgwrite' - флашването завърши.\n"
+
+msgid "ofgwrite will stop enigma2 now to run the flash.\n"
+msgstr "програмата ofgwrite сега ще спре enigma2 за флашването.\n"
+
+msgid "older than 1 week"
+msgstr "по-стари от 1 седмица"
+
+msgid "older than 2 days"
+msgstr "по-стари от 2 дни"
+
+msgid "older than 2 weeks"
+msgstr "по-стари от 2 седмици"
+
+msgid "older than 3 days"
+msgstr "по-стари от 3 дни"
+
+msgid "older than 3 months"
+msgstr "по-стари от 3 месеца"
+
+msgid "older than 3 weeks"
+msgstr "по-стари от 3 седмици"
+
+msgid "older than 4 weeks"
+msgstr "по-стари от 4 седмици"
+
+msgid "placeholder message 2"
+msgstr "кутия за съобщения 2"
+
+msgid "please press exit to go back to the menu.\n"
+msgstr "натиснете 'Изход', за връщане към менюто.\n"
+
+msgid "type info"
+msgstr "тип инфо"
+
+msgid "type yes/no"
+msgstr "тип да/не"
+
+msgid "unknown"
+msgstr "неизвестно"
+
+msgid "wake up and shutdown after backup"
+msgstr "вкл. и изкл. след бакъп"
+
+msgid "wake up for backup"
+msgstr "вкл. за бакъп"
