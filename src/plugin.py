@@ -29,7 +29,6 @@ except:
 from enigma import eTimer, eConsoleAppContainer
 import NavigationInstance
 from Tools import Notifications
-from Tools.HardwareInfo import HardwareInfo
 
 from mimetypes import add_type
 add_type("application/x-full-backup", ".fbackup")
@@ -46,14 +45,40 @@ def _(txt):
 		t = gettext.gettext(txt)
 	return t
 
-PLUGIN_VERSION = _(" ver. ") + "6.2"
+PLUGIN_VERSION = _(" ver. ") + "6.3"
 
 BOX_NAME = "none"
 MODEL_NAME = "none"
-if os.path.exists("/proc/stb/info/boxtype"):
+if os.path.exists("/proc/stb/info/vumodel") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/boxtype"):
+	BOX_NAME = "vu"
+	try:
+		f = open("/proc/stb/info/vumodel")
+		MODEL_NAME = f.read().strip()
+		f.close()
+	except:
+		pass
+elif os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/hwmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/boxtype")
+		MODEL_NAME = f.read().strip()
+		f.close()
+	except:
+		pass
+elif os.path.exists("/proc/stb/info/model") and not os.path.exists("/proc/stb/info/hwmodel"):
+	BOX_NAME = "all"
+	try:
+		f = open("/proc/stb/info/model")
+		MODEL_NAME = f.read().strip()
+		if MODEL_NAME.startswith('dm'):
+			BOX_NAME = "dmm"
+		f.close()
+	except:
+		pass
+elif os.path.exists("/proc/stb/info/gbmodel"):
+	BOX_NAME = "all"
+	try:
+		f = open("/proc/stb/info/gbmodel")
 		MODEL_NAME = f.read().strip()
 		f.close()
 	except:
@@ -62,30 +87,6 @@ elif os.path.exists("/proc/stb/info/hwmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/hwmodel")
-		MODEL_NAME = f.read().strip()
-		f.close()
-	except:
-		pass
-elif os.path.exists("/proc/stb/info/vumodel"):
-	BOX_NAME = "vu"
-	try:
-		f = open("/proc/stb/info/vumodel")
-		MODEL_NAME = f.read().strip()
-		f.close()
-	except:
-		pass
-elif HardwareInfo().get_device_name().startswith('dm') and os.path.exists("/proc/stb/info/model"):
-	BOX_NAME = "dmm"
-	try:
-		f = open("/proc/stb/info/model")
-		MODEL_NAME = f.read().strip()
-		f.close()
-	except:
-		pass
-elif os.path.exists("/proc/stb/info/gbmodel"):
-	BOX_NAME = "all"
-	try:
-		f = open("/proc/stb/info/gbmodel")
 		MODEL_NAME = f.read().strip()
 		f.close()
 	except:
