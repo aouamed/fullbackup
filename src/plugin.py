@@ -45,7 +45,7 @@ def _(txt):
 		t = gettext.gettext(txt)
 	return t
 
-PLUGIN_VERSION = _(" ver. ") + "6.3"
+PLUGIN_VERSION = _(" ver. ") + "6.4"
 
 BOX_NAME = "none"
 MODEL_NAME = "none"
@@ -257,7 +257,7 @@ def backupCommand():
 	cmd = BACKUP_SCRIPT
 	if BOX_NAME == 'dmm':
 		cmd = DREAM_BACKUP_SCRIPT
-	if BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k"):
+	if (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k")) or MODEL_NAME == "lunix3-4k":
 		cmd = VU4K_BACKUP_SCRIPT
 	if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
 		cmd = HD51_BACKUP_SCRIPT
@@ -472,7 +472,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 					files = "^.*\.(zip|bin)"
 					if MODEL_NAME == "fusionhd" or MODEL_NAME == "fusionhdse" or MODEL_NAME == "purehd":
 						files = "^.*\.(zip|bin|update)"
-					if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
+					if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k":
 						files = "^.*\.(zip|bz2|bin)"
 				elif BOX_NAME == "vu":
 					if MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k":
@@ -540,7 +540,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 		if not MODEL_NAME:
 			return
 		files = "^.*\.(zip|bin)"
-		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
+		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k":
 			files = "^.*\.(zip|bz2|bin)"
 		elif BOX_NAME == "vu":
 			if MODEL_NAME == "solo2" or MODEL_NAME == "duo2" or MODEL_NAME == "solose" or MODEL_NAME == "zero" or MODEL_NAME == "fusionhd" or MODEL_NAME == "fusionhdse" or MODEL_NAME == "purehd":
@@ -837,11 +837,16 @@ class FlashImageConfig(Screen):
 				no_backup_files = []
 				text = _("Select parameter for start flash!\n")
 				text += _('For flashing your receiver files are needed:\n')
-				if os.path.exists("/proc/stb/info/hwmodel") and MODEL_NAME.startswith('fusion'):
-					backup_files = [("oe_kernel.bin"), ("oe_rootfs.bin")]
-					no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin", "rootfs.bin", "kernel.bin"]
-					text += 'oe_kernel.bin, oe_rootfs.bin'
-				elif os.path.exists("/proc/stb/info/boxtype"):
+				if os.path.exists("/proc/stb/info/hwmodel") and (MODEL_NAME.startswith('fusion') or MODEL_NAME == "lunix3-4k"):
+					if MODEL_NAME == "lunix3-4k":
+						backup_files = [("rootfs.tar.bz2"), ("oe_kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'oe_kernel.bin, rootfs.tar.bz2'
+					else:
+						backup_files = [("oe_kernel.bin"), ("oe_rootfs.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin", "rootfs.bin", "kernel.bin"]
+						text += 'oe_kernel.bin, oe_rootfs.bin'
+				elif os.path.exists("/proc/stb/info/boxtype")  and not os.path.exists("/proc/stb/info/hwmodel"):
 					if MODEL_NAME in ["hd51", "sf4008", "vs1500", "et11000", "h7"]:
 						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
@@ -850,7 +855,7 @@ class FlashImageConfig(Screen):
 						backup_files = [("kernel.bin"), ("rootfs.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
 						text += 'kernel.bin, rootfs.bin'
-				elif os.path.exists("/proc/stb/info/vumodel"):
+				elif os.path.exists("/proc/stb/info/vumodel") and os.path.exists("/etc/init.d/vuplus-platform-util"):
 					if MODEL_NAME in ["solo4k", "uno4k", "uno4kse", "ultimo4k", "zero4k"]:
 						backup_files = ["kernel_auto.bin", "rootfs.tar.bz2"]
 						no_backup_files = ["kernel.bin", "kernel_cfe_auto.bin", "root_cfe_auto.bin" "root_cfe_auto.jffs2", "rootfs.bin"]
@@ -1153,7 +1158,10 @@ class SearchOMBfile(Screen):
 					if MODEL_NAME.startswith('fusion'):
 						backup_files = [("oe_kernel.bin"), ("oe_rootfs.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin", "rootfs.bin", "kernel.bin", "rootfs.tar.bz2"]
-						text += 'oe_kernel.bin, oe_rootfs.bin'
+					elif MODEL_NAME == "lunix3-4k":
+						backup_files = [("rootfs.tar.bz2"), ("oe_kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'oe_kernel.bin, rootfs.tar.bz2'
 					elif (MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7"):
 						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
@@ -1613,9 +1621,9 @@ def msgManualBackupClosed(ret, curdir=None):
 				cmd = BACKUP_SCRIPT
 				if BOX_NAME == 'dmm':
 					cmd = DREAM_BACKUP_SCRIPT
-				if BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k"):
+				elif (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k")) or MODEL_NAME == "lunix3-4k":
 					cmd = VU4K_BACKUP_SCRIPT
-				if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
+				elif MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
 					cmd = HD51_BACKUP_SCRIPT
 				cmd += " %s" % curdir
 				if os.path.exists(zip_bin):

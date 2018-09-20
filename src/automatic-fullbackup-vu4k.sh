@@ -52,7 +52,7 @@ opkg list-installed | grep dvb-proxy
 CREATE_ZIP="$2"
 IMAGENAME="$3"
 
-if [ -f /proc/stb/info/vumodel ] ; then
+if [ -f /proc/stb/info/vumodel ] && [ -f /etc/init.d/vuplus-platform-util ]; then
 	MODEL=$( cat /proc/stb/info/vumodel )
 	if [ $MODEL = "solo4k" ] ; then
 		echo "Found VU+ Solo 4K\n"
@@ -83,6 +83,21 @@ if [ -f /proc/stb/info/vumodel ] ; then
 	MAINDEST="$DIRECTORY/vuplus/$MODEL"
 	EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/vuplus"
 	echo "Destination        = $MAINDEST\n"
+elif [ -f /proc/stb/info/hwmodel ]; then
+	MODEL=$( cat /proc/stb/info/hwmodel )
+	if [ $MODEL = "lunix3-4k" ] ; then
+		echo "Found Qviart lunix3 4K\n"
+		MTD_KERNEL="mmcblk0p1"
+		KERNELNAME="oe_kernel.bin"
+		TYPE=QVIART
+		SHOWNAME="Qviart $MODEL"
+		MAINDEST="$DIRECTORY/update/$MODEL"
+		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
+		echo "Destination        = $MAINDEST\n"
+	else
+		echo "No supported receiver found!\n"
+		exit 0
+	fi
 else
 	echo "No supported receiver found!\n"
 	exit 0
@@ -141,7 +156,7 @@ $BZIP2 $WORKDIR/rootfs.tar
 
 TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
-if [ $TYPE = "VU" ] ; then
+if [ $TYPE = "VU" ]  || [ $TYPE = "QVIART" ]; then
 	rm -rf "$MAINDEST"
 	echo "Removed directory  = $MAINDEST\n"
 	mkdir -p "$MAINDEST" 
@@ -149,7 +164,9 @@ if [ $TYPE = "VU" ] ; then
 	mv "$WORKDIR/$KERNELNAME" "$MAINDEST/$KERNELNAME"
 	mv "$WORKDIR/$ROOTFSTYPE" "$MAINDEST/$ROOTFSTYPE"
 	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
-	if [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "zero4k" ] ; then
+	if [ $MODEL = "lunix3-4k" ] ; then
+		echo ""
+	elif [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
 	else
 		echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
