@@ -45,7 +45,7 @@ def _(txt):
 		t = gettext.gettext(txt)
 	return t
 
-PLUGIN_VERSION = _(" ver. ") + "6.4"
+PLUGIN_VERSION = _(" ver. ") + "6.5"
 
 BOX_NAME = "none"
 MODEL_NAME = "none"
@@ -70,7 +70,7 @@ elif os.path.exists("/proc/stb/info/model") and not os.path.exists("/proc/stb/in
 	try:
 		f = open("/proc/stb/info/model")
 		MODEL_NAME = f.read().strip()
-		if MODEL_NAME.startswith('dm'):
+		if MODEL_NAME.startswith('dm') and not os.path.exists("/proc/stb/info/boxtype"):
 			BOX_NAME = "dmm"
 		f.close()
 	except:
@@ -257,6 +257,8 @@ def backupCommand():
 	cmd = BACKUP_SCRIPT
 	if BOX_NAME == 'dmm':
 		cmd = DREAM_BACKUP_SCRIPT
+		if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
+			cmd = VU4K_BACKUP_SCRIPT
 	if (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k")) or MODEL_NAME == "lunix3-4k":
 		cmd = VU4K_BACKUP_SCRIPT
 	if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
@@ -380,7 +382,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Save"))
 		self["key_yellow"] = Button(_("Manual"))
-		if BOX_NAME == 'none' or BOX_NAME == 'dmm':
+		if BOX_NAME == 'none' or (BOX_NAME == 'dmm' and not (MODEL_NAME == "dm900" or MODEL_NAME == "dm920")):
 			self["key_blue"] = Button()
 		else:
 			self["key_blue"] = Button(_("Restore backup"))
@@ -483,6 +485,8 @@ class FullBackupConfig(ConfigListScreen,Screen):
 						files = "^.*\.(zip|bin|jffs2)"
 				elif BOX_NAME == "dmm":
 					files = "^.*\.(zip|nfi)"
+					if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
+						files = "^.*\.(zip|bz2|bin)"
 				curdir = config.plugins.fullbackup.where.value
 				path = config.plugins.fullbackup.where.value + '/automatic_fullbackup/'
 				if os.path.exists(path):
@@ -531,7 +535,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 			self.session.open(MultiBootSwitcher)
 
 	def flashimage(self):
-		if BOX_NAME == 'none' or BOX_NAME == 'dmm':
+		if BOX_NAME == 'none' or (BOX_NAME == 'dmm' and not (MODEL_NAME == "dm900" or MODEL_NAME == "dm920")):
 			self.session.open(MessageBox, _("Your receiver not supported!"), MessageBox.TYPE_ERROR)
 			return
 		if fileExists("/omb/open-multiboot") and os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
@@ -540,7 +544,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 		if not MODEL_NAME:
 			return
 		files = "^.*\.(zip|bin)"
-		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k":
+		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
 			files = "^.*\.(zip|bz2|bin)"
 		elif BOX_NAME == "vu":
 			if MODEL_NAME == "solo2" or MODEL_NAME == "duo2" or MODEL_NAME == "solose" or MODEL_NAME == "zero" or MODEL_NAME == "fusionhd" or MODEL_NAME == "fusionhdse" or MODEL_NAME == "purehd":
@@ -872,6 +876,11 @@ class FlashImageConfig(Screen):
 					if MODEL_NAME in ["gbquadplus"]:
 						backup_files = ["kernel.bin", "rootfs.bin"]
 						text += "kernel.bin, rootfs.bin"
+				elif os.path.exists("/proc/stb/info/model") and MODEL_NAME.startswith('dm') and not os.path.exists("/proc/stb/info/boxtype"):
+					if MODEL_NAME in ["dm900", "dm920"]:
+						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'kernel.bin/kernel1.bin, rootfs.tar.bz2'
 				try:
 					self.founds = False
 					text += _('\nThe found files:')
@@ -1186,11 +1195,15 @@ class SearchOMBfile(Screen):
 				elif BOX_NAME == "dmm":
 					backup_files = ["*.nfi"]
 					text += '*.nfi'
+					if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
+						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'kernel.bin/kernel1.bin, rootfs.tar.bz2'
 				self.model = MODEL_NAME
 				try:
 					text += _('\nThe found files:')
 					for name in os.listdir(dirname):
-						if BOX_NAME == "dmm":
+						if BOX_NAME == "dmm" and not (MODEL_NAME == "dm900" or MODEL_NAME == "dm920"):
 							if filename.endswith(".nfi"):
 								text += _("  %s (maybe ok)") % name
 								founds = True
@@ -1621,6 +1634,8 @@ def msgManualBackupClosed(ret, curdir=None):
 				cmd = BACKUP_SCRIPT
 				if BOX_NAME == 'dmm':
 					cmd = DREAM_BACKUP_SCRIPT
+					if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
+						cmd = VU4K_BACKUP_SCRIPT
 				elif (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k")) or MODEL_NAME == "lunix3-4k":
 					cmd = VU4K_BACKUP_SCRIPT
 				elif MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":

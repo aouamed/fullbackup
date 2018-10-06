@@ -49,6 +49,7 @@ echo "Back-up date_time = $DATE\n"
 echo "Working directory = $WORKDIR\n"
 echo -n "Drivers = "
 opkg list-installed | grep dvb-proxy
+opkg list-installed | grep dvb-modules
 CREATE_ZIP="$2"
 IMAGENAME="$3"
 
@@ -93,6 +94,21 @@ elif [ -f /proc/stb/info/hwmodel ]; then
 		SHOWNAME="Qviart $MODEL"
 		MAINDEST="$DIRECTORY/update/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
+		echo "Destination        = $MAINDEST\n"
+	else
+		echo "No supported receiver found!\n"
+		exit 0
+	fi
+elif [ -f /proc/stb/info/model ]; then
+	MODEL=$( cat /proc/stb/info/model )
+	if [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
+		echo "Found Dreambox dm900/dm920\n"
+		MTD_KERNEL="mmcblk0p1"
+		KERNELNAME="kernel.bin"
+		TYPE=DREAMBOX
+		SHOWNAME="Dreambox $MODEL"
+		MAINDEST="$DIRECTORY/$MODEL"
+		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 	else
 		echo "No supported receiver found!\n"
@@ -156,7 +172,7 @@ $BZIP2 $WORKDIR/rootfs.tar
 
 TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
-if [ $TYPE = "VU" ]  || [ $TYPE = "QVIART" ]; then
+if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] ; then
 	rm -rf "$MAINDEST"
 	echo "Removed directory  = $MAINDEST\n"
 	mkdir -p "$MAINDEST" 
@@ -164,7 +180,7 @@ if [ $TYPE = "VU" ]  || [ $TYPE = "QVIART" ]; then
 	mv "$WORKDIR/$KERNELNAME" "$MAINDEST/$KERNELNAME"
 	mv "$WORKDIR/$ROOTFSTYPE" "$MAINDEST/$ROOTFSTYPE"
 	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
-	if [ $MODEL = "lunix3-4k" ] ; then
+	if [ $MODEL = "lunix3-4k" ] || [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
 		echo ""
 	elif [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
