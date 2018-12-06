@@ -53,7 +53,7 @@ opkg list-installed | grep dvb-modules
 CREATE_ZIP="$2"
 IMAGENAME="$3"
 
-if [ -f /proc/stb/info/vumodel ] && [ -f /etc/init.d/vuplus-platform-util ]; then
+if [ -f /proc/stb/info/vumodel ] && [ -n /proc/stb/info/hwmodel ]; then
 	MODEL=$( cat /proc/stb/info/vumodel )
 	if [ $MODEL = "solo4k" ] ; then
 		echo "Found VU+ Solo 4K\n"
@@ -74,6 +74,10 @@ if [ -f /proc/stb/info/vumodel ] && [ -f /etc/init.d/vuplus-platform-util ]; the
 	elif [ $MODEL = "zero4k" ] ; then
 		echo "Found VU+ Zero 4K\n"
 		MTD_KERNEL="mmcblk0p4"
+		KERNELNAME="kernel_auto.bin"
+	elif [ $MODEL = "duo4k" ] ; then
+		echo "Found VU+ Duo 4K\n"
+		MTD_KERNEL="mmcblk0p6"
 		KERNELNAME="kernel_auto.bin"
 	else
 		echo "No supported receiver found!\n"
@@ -167,8 +171,8 @@ dd if=/dev/$MTD_KERNEL of=$WORKDIR/$KERNELNAME > /dev/null 2>&1
 
 echo "Start creating rootfs.tar\n"
 #$MKFS -jcf $WORKDIR/$ROOTFSTYPE -C /tmp/bi/root .
-$MKFS -cf $WORKDIR/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* .
-$BZIP2 $WORKDIR/rootfs.tar
+$MKFS -cf $WORKDIR/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* . > /dev/null 2>&1
+$BZIP2 $WORKDIR/rootfs.tar > /dev/null 2>&1
 
 TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
@@ -182,10 +186,13 @@ if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] ; then
 	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
 	if [ $MODEL = "lunix3-4k" ] || [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
 		echo ""
-	elif [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "zero4k" ] ; then
+	elif [ $MODEL = "uno4k" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
 	else
 		echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
+	fi
+	if [ $MODEL = "zero4k" ] || [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "ultimo4k" ] || [ $MODEL = "solo4k" ] || [ $MODEL = "duo4k" ] ; then
+		echo "rename this file to 'mkpart.update' for forces create partition and kernel update." > "$MAINDEST/nomkpart.update"
 	fi
 	if [ -z "$CREATE_ZIP" ] ; then
 		mkdir -p "$EXTRA/$MODEL"

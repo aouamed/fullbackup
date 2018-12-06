@@ -335,8 +335,8 @@ dd if=/dev/$MTD_KERNEL of=$WORKDIR/$KERNELNAME > /dev/null 2>&1
 
 echo "Start creating rootfs.tar\n"
 #$MKFS -jcf $WORKDIR/$ROOTFSTYPE -C /tmp/bi/root .
-$MKFS -cf $WORKDIR/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* .
-$BZIP2 $WORKDIR/rootfs.tar
+$MKFS -cf $WORKDIR/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* . > /dev/null 2>&1
+$BZIP2 $WORKDIR/rootfs.tar > /dev/null 2>&1
 
 TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
