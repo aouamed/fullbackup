@@ -45,11 +45,11 @@ def _(txt):
 		t = gettext.gettext(txt)
 	return t
 
-PLUGIN_VERSION = _(" ver. ") + "6.6"
+PLUGIN_VERSION = _(" ver. ") + "6.7"
 
 BOX_NAME = "none"
 MODEL_NAME = "none"
-if os.path.exists("/proc/stb/info/vumodel") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/boxtype"):
+if os.path.exists("/proc/stb/info/vumodel") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/gbmodel"):
 	BOX_NAME = "vu"
 	try:
 		f = open("/proc/stb/info/vumodel")
@@ -57,7 +57,7 @@ if os.path.exists("/proc/stb/info/vumodel") and not os.path.exists("/proc/stb/in
 		f.close()
 	except:
 		pass
-elif os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/hwmodel"):
+elif os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/gbmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/boxtype")
@@ -65,7 +65,7 @@ elif os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/
 		f.close()
 	except:
 		pass
-elif os.path.exists("/proc/stb/info/model") and not os.path.exists("/proc/stb/info/hwmodel"):
+elif os.path.exists("/proc/stb/info/model") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/gbmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/model")
@@ -75,15 +75,17 @@ elif os.path.exists("/proc/stb/info/model") and not os.path.exists("/proc/stb/in
 		f.close()
 	except:
 		pass
-elif os.path.exists("/proc/stb/info/gbmodel"):
+elif os.path.exists("/proc/stb/info/gbmodel") and not os.path.exists("/proc/stb/info/hwmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/gbmodel")
 		MODEL_NAME = f.read().strip()
 		f.close()
+		if MODEL_NAME in ("gbquad4k", "gbue4k"):
+			BOX_NAME = "gigablue"
 	except:
 		pass
-elif os.path.exists("/proc/stb/info/hwmodel"):
+elif os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/gbmodel"):
 	BOX_NAME = "all"
 	try:
 		f = open("/proc/stb/info/hwmodel")
@@ -180,7 +182,7 @@ def check_hdd(dir=""):
 		if Standby.inStandby is None:
 			_session and _session.open(MessageBox, _("AFB\nNot found mount device for create full backup!"), type = MessageBox.TYPE_ERROR)
 		return False
-	if MODEL_NAME == "hd51" or MODEL_NAME == "vs1500" or MODEL_NAME == "h7":
+	if emmc_multiboot:
 		if Freespace(dir) < 1500000:
 			if Standby.inStandby is None:
 				_session and _session.open(MessageBox, _("AFB\nNot enough free space on device!\nYou need at least 1500Mb free space!"), type = MessageBox.TYPE_ERROR)
@@ -193,30 +195,46 @@ def check_hdd(dir=""):
 	return True
 
 emmc_multiboot = MODEL_NAME in ("hd51", "vs1500", "h7")
+emmc_multiboot1 = MODEL_NAME in ("gbquad4k", "gbue4k")
 
 def runBlkid():
 	list = []
-	if MODEL_NAME == "hd51" or MODEL_NAME == "vs1500" or MODEL_NAME == "h7":
+	if emmc_multiboot or emmc_multiboot1:
 		blkid_linux = os.popen("blkid -v").read()
-		if 'util-linux' in blkid_linux and os.path.exists("/sbin/blkid.util-linux"):
+		sfdisk = os.popen("sfdisk -v").read()
+		if 'util-linux' in blkid_linux and 'util-linux' in sfdisk:
 			ret = os.popen("blkid").readlines()
 			for line in ret:
-				if '/dev/mmcblk0p3' in line:
-					if 'TYPE' not in line:
-						os.system('mkfs.ext4 -F /dev/mmcblk0p3')
-					list.append(('mmcblk0p3'))
-				if '/dev/mmcblk0p5' in line:
-					if 'TYPE' not in line:
-						os.system('mkfs.ext4 -F /dev/mmcblk0p5')
-					list.append(('mmcblk0p5'))
-				if '/dev/mmcblk0p7' in line:
-					if 'TYPE' not in line:
-						os.system('mkfs.ext4 -F /dev/mmcblk0p7')
-					list.append(('mmcblk0p7'))
-				if '/dev/mmcblk0p9' in line:
-					if 'TYPE' not in line:
-						os.system('mkfs.ext4 -F /dev/mmcblk0p9')
-					list.append(('mmcblk0p9'))
+				if emmc_multiboot:
+					if '/dev/mmcblk0p3' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p3')
+						list.append(('mmcblk0p3'))
+					if '/dev/mmcblk0p5' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p5')
+						list.append(('mmcblk0p5'))
+					if '/dev/mmcblk0p7' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p7')
+						list.append(('mmcblk0p7'))
+					if '/dev/mmcblk0p9' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p9')
+						list.append(('mmcblk0p9'))
+				else:
+					if '/dev/mmcblk0p5' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p5')
+						list.append(('mmcblk0p5'))
+					if '/dev/mmcblk0p7' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p7')
+						list.append(('mmcblk0p7'))
+					if '/dev/mmcblk0p9' in line:
+						if 'TYPE' not in line:
+							os.system('mkfs.ext4 -F /dev/mmcblk0p9')
+						list.append(('mmcblk0p9'))
 				if '/dev/mmcblk0p10' in line:
 					if 'TYPE' not in line and 'swap' in line:
 						os.system('mkswap /dev/mmcblk0p10')
@@ -229,7 +247,7 @@ def runBlkid():
 
 def installUtilblkidCallback(answer):
 		if answer:
-			os.system("opkg update && opkg install util-linux-blkid")
+			os.system("opkg update && opkg install util-linux-blkid && opkg install util-linux-sfdisk")
 
 def backupCommand():
 	try:
@@ -259,7 +277,7 @@ def backupCommand():
 		cmd = DREAM_BACKUP_SCRIPT
 		if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
 			cmd = VU4K_BACKUP_SCRIPT
-	if (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k" or MODEL_NAME == "duo4k")) or MODEL_NAME == "lunix3-4k":
+	if (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k" or MODEL_NAME == "duo4k")) or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "gbquad4k" or MODEL_NAME == "gbue4k":
 		cmd = VU4K_BACKUP_SCRIPT
 	if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
 		cmd = HD51_BACKUP_SCRIPT
@@ -375,7 +393,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 			list = self.configList + self.appendList
 		else:
 			list = self.configList
-		if MODEL_NAME == "hd51" or MODEL_NAME == "vs1500" or MODEL_NAME == "h7":
+		if emmc_multiboot:
 			list.append(getConfigListEntry(_("Show multiBoot switcher in menu shutdown"), cfg.multiboot_switcher_standbymenu))
 			list.append(getConfigListEntry(_("Open multiBoot switcher"), cfg.run_multbboot_switcher))
 		ConfigListScreen.__init__(self, list, session=session, on_change = self.changedEntry)
@@ -474,7 +492,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 					files = "^.*\.(zip|bin)"
 					if MODEL_NAME == "fusionhd" or MODEL_NAME == "fusionhdse" or MODEL_NAME == "purehd":
 						files = "^.*\.(zip|bin|update)"
-					if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k":
+					if MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "gbquad4k" or MODEL_NAME == "gbue4k":
 						files = "^.*\.(zip|bz2|bin)"
 				elif BOX_NAME == "vu":
 					if MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k" or MODEL_NAME == "duo4k":
@@ -544,7 +562,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 		if not MODEL_NAME:
 			return
 		files = "^.*\.(zip|bin)"
-		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k"  or MODEL_NAME == "duo4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
+		if MODEL_NAME == "hd51" or MODEL_NAME == "solo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k"  or MODEL_NAME == "zero4k"  or MODEL_NAME == "duo4k" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7" or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "dm900" or MODEL_NAME == "dm920" or MODEL_NAME == "gbquad4k" or MODEL_NAME == "gbue4k":
 			files = "^.*\.(zip|bz2|bin)"
 		elif BOX_NAME == "vu":
 			if MODEL_NAME == "solo2" or MODEL_NAME == "duo2" or MODEL_NAME == "solose" or MODEL_NAME == "zero" or MODEL_NAME == "fusionhd" or MODEL_NAME == "fusionhdse" or MODEL_NAME == "purehd":
@@ -585,7 +603,7 @@ class FullBackupConfig(ConfigListScreen,Screen):
 			(_("Background mode"), "background"),
 			(_("Console mode"), "console"),
 		]
-		if MODEL_NAME == "hd51" or MODEL_NAME == "vs1500" or MODEL_NAME == "h7":
+		if emmc_multiboot:
 			list += [
 				(_("Background mode") + _(" as recovery"), "background_recovery"),
 				(_("Console mode") + _(" as recovery"), "console_recovery"),
@@ -764,12 +782,24 @@ class FlashImageConfig(Screen):
 
 	def imbeddedMiltiBoot(self):
 		list = []
-		if MODEL_NAME == "hd51" or MODEL_NAME == "vs1500" or MODEL_NAME == "h7":
+		if emmc_multiboot:
 			try:
 				ret = os.popen("sfdisk -l /dev/mmcblk0").readlines()
 				for line in ret:
 					if '/dev/mmcblk0p3' in line and 'Linux filesystem' in line:
 						list.append(('mmcblk0p3'))
+					if '/dev/mmcblk0p5' in line and 'Linux filesystem' in line:
+						list.append(('mmcblk0p5'))
+					if '/dev/mmcblk0p7' in line and 'Linux filesystem' in line:
+						list.append(('mmcblk0p7'))
+					if '/dev/mmcblk0p9' in line and 'Linux filesystem' in line:
+						list.append(('mmcblk0p9'))
+			except:
+				pass
+		elif emmc_multiboot1:
+			try:
+				ret = os.popen("sfdisk -l /dev/mmcblk0").readlines()
+				for line in ret:
 					if '/dev/mmcblk0p5' in line and 'Linux filesystem' in line:
 						list.append(('mmcblk0p5'))
 					if '/dev/mmcblk0p7' in line and 'Linux filesystem' in line:
@@ -850,7 +880,7 @@ class FlashImageConfig(Screen):
 						backup_files = [("oe_kernel.bin"), ("oe_rootfs.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin", "rootfs.bin", "kernel.bin"]
 						text += 'oe_kernel.bin, oe_rootfs.bin'
-				elif os.path.exists("/proc/stb/info/boxtype")  and not os.path.exists("/proc/stb/info/hwmodel"):
+				elif os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/hwmodel") and not os.path.exists("/proc/stb/info/gbmodel"):
 					if MODEL_NAME in ["hd51", "sf4008", "vs1500", "et11000", "h7"]:
 						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
@@ -859,7 +889,7 @@ class FlashImageConfig(Screen):
 						backup_files = [("kernel.bin"), ("rootfs.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
 						text += 'kernel.bin, rootfs.bin'
-				elif os.path.exists("/proc/stb/info/vumodel"):
+				elif os.path.exists("/proc/stb/info/vumodel") and not os.path.exists("/proc/stb/info/gbmodel") and not os.path.exists("/proc/stb/info/hwmodel"):
 					if MODEL_NAME in ["solo4k", "uno4k", "uno4kse", "ultimo4k", "zero4k", "duo4k"]:
 						backup_files = ["kernel_auto.bin", "rootfs.tar.bz2"]
 						no_backup_files = ["kernel.bin", "kernel_cfe_auto.bin", "root_cfe_auto.bin" "root_cfe_auto.jffs2", "rootfs.bin"]
@@ -872,11 +902,15 @@ class FlashImageConfig(Screen):
 						backup_files = ["kernel_cfe_auto.bin", "root_cfe_auto.jffs2"]
 						no_backup_files = ["kernel.bin", "root_cfe_auto.bin", "rootfs.bin"]
 						text += 'kernel_cfe_auto.bin, root_cfe_auto.jffs2'
-				elif os.path.exists("/proc/stb/info/gbmodel"):
+				elif os.path.exists("/proc/stb/info/gbmodel") and not os.path.exists("/proc/stb/info/hwmodel"):
 					if MODEL_NAME in ["gbquadplus"]:
 						backup_files = ["kernel.bin", "rootfs.bin"]
 						text += "kernel.bin, rootfs.bin"
-				elif os.path.exists("/proc/stb/info/model") and MODEL_NAME.startswith('dm') and not os.path.exists("/proc/stb/info/boxtype"):
+					if MODEL_NAME in ["gbquad4k", "gbue4k"]:
+						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'kernel.bin/kernel1.bin, rootfs.tar.bz2'
+				elif os.path.exists("/proc/stb/info/model") and MODEL_NAME.startswith('dm') and not os.path.exists("/proc/stb/info/boxtype") and not os.path.exists("/proc/stb/info/gbmodel"):
 					if MODEL_NAME in ["dm900", "dm920"]:
 						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
@@ -896,19 +930,27 @@ class FlashImageConfig(Screen):
 				except:
 					pass
 				if self.founds:
-					open_list = [
-						(_("Simulate (no write)"), "simulate"),
-						(_("Standard (root and kernel)"), "standard"),
-						(_("Only root"), "root"),
-						(_("Only kernel"), "kernel"),
-					]
+					num_sector = len(self.imbeddedMiltiBoot)
+					if num_sector > 1:
+						open_list = [
+							(_("Simulate (no write)") + _("/First partition"), "simulate"),
+							(_("Standard (root and kernel)") + _("/First partition"), "standard"),
+							(_("Only root") + _("/First partition"), "root"),
+							(_("Only kernel") + _("/First partition"), "kernel"),
+						]
+					else:
+						open_list = [
+							(_("Simulate (no write)"), "simulate"),
+							(_("Standard (root and kernel)"), "standard"),
+							(_("Only root"), "root"),
+							(_("Only kernel"), "kernel"),
+						]
 					open_list2 = [
 						(_("Simulate second partition (no write)"), "simulate2"),
 						(_("Second partition (root and kernel)"), "standard2"),
 						(_("Second partition (only root)"), "root2"),
 						(_("Second partition (only kernel)"), "kernel2"),
 					]
-					num_sector = len(self.imbeddedMiltiBoot)
 					if num_sector > 1:
 						open_list3 = [
 							(_("Simulate second partition (no write)"), "imbedded_simulate2"),
@@ -952,25 +994,44 @@ class FlashImageConfig(Screen):
 			cmd = "echo -e"
 			if ret[1] == "simulate":
 				text += _("Simulate (no write)")
-				cmd = "%s -n '%s'" % (ofgwrite_bin, dir_flash)
+				cmd = "%s -r -k -n '%s'" % (ofgwrite_bin, dir_flash)
+				if len(self.imbeddedMiltiBoot) > 1:
+					cmd = "%s -r -k -m1 -n '%s'" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "standard":
 				text += _("Standard (root and kernel)")
-				if len(self.imbeddedMiltiBoot) > 1:
-					if 'mmcblk0p3' not in mount_part:
-						os.system('mkfs.ext4 -F /dev/mmcblk0p3')
-						self.stop_enigma = False
 				cmd = "%s -r -k '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				if len(self.imbeddedMiltiBoot) > 1:
+					if emmc_multiboot:
+						if 'mmcblk0p3' not in mount_part:
+							os.system('umount -fl /dev/mmcblk0p3')
+							os.system('mkfs.ext4 -F /dev/mmcblk0p3')
+							self.stop_enigma = False
+					elif emmc_multiboot1:
+						if 'mmcblk0p5' not in mount_part:
+							os.system('umount -fl /dev/mmcblk0p5')
+							os.system('mkfs.ext4 -F /dev/mmcblk0p5')
+							self.stop_enigma = False
+					cmd = "%s -r -k -m1 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "root":
 				text += _("Only root")
 				cmd = "%s -r '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
-			elif ret[1] == "kernel":
 				if len(self.imbeddedMiltiBoot) > 1:
-					if 'mmcblk0p3' not in mount_part:
-						os.system('umount -fl /dev/mmcblk0p3')
-						os.system('mkfs.ext4 -F /dev/mmcblk0p3')
-						self.stop_enigma = False
+					if emmc_multiboot:
+						if 'mmcblk0p3' not in mount_part:
+							os.system('umount -fl /dev/mmcblk0p3')
+							os.system('mkfs.ext4 -F /dev/mmcblk0p3')
+							self.stop_enigma = False
+					elif emmc_multiboot1:
+						if 'mmcblk0p5' not in mount_part:
+							os.system('umount -fl /dev/mmcblk0p5')
+							os.system('mkfs.ext4 -F /dev/mmcblk0p5')
+							self.stop_enigma = False
+					cmd = "%s -r -m1 '%s'" % (ofgwrite_bin, dir_flash)
+			elif ret[1] == "kernel":
 				text += _("Only kernel")
 				cmd = "%s -k '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				if len(self.imbeddedMiltiBoot) > 1:
+					cmd = "%s -k -m1 '%s'" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "simulate2":
 				text += _("Simulate second partition (no write)")
 				cmd = "%s -kmtd3 -rmtd4 -n '%s'" % (ofgwrite_bin, dir_flash)
@@ -985,33 +1046,47 @@ class FlashImageConfig(Screen):
 				cmd = "%s -kmtd3 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_simulate2":
 				text += _("Simulate second partition (no write)")
-				cmd = "%s -n -r -k -m2 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				cmd = "%s -r -k -m2 -n '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_standard2":
 				text += _("Second partition")
-				if 'mmcblk0p5' not in mount_part:
-					os.system('umount -fl /dev/mmcblk0p5')
-					os.system('mkfs.ext4 -F /dev/mmcblk0p5')
-					self.stop_enigma = False
-				cmd = "%s -r -k -m2 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				if emmc_multiboot:
+					if 'mmcblk0p5' not in mount_part:
+						os.system('umount -fl /dev/mmcblk0p5')
+						os.system('mkfs.ext4 -F /dev/mmcblk0p5')
+						self.stop_enigma = False
+					cmd = "%s -r -k -m2 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				elif emmc_multiboot1:
+					if 'mmcblk0p7' not in mount_part:
+						os.system('umount -fl /dev/mmcblk0p7')
+						os.system('mkfs.ext4 -F /dev/mmcblk0p7')
+						self.stop_enigma = False
+					cmd = "%s -r -k -m2 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_simulate3":
 				text += _("Simulate third partition (no write)")
-				cmd = "%s -n -r -k -m3 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				cmd = "%s -r -k -m3 -n '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_standard3":
 				text += _("Third partition")
-				if 'mmcblk0p7' not in mount_part:
-					os.system('umount -fl /dev/mmcblk0p7')
-					os.system('mkfs.ext4 -F /dev/mmcblk0p7')
-					self.stop_enigma = False
-				cmd = "%s -r -k -m3 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				if emmc_multiboot:
+					if 'mmcblk0p7' not in mount_part:
+						os.system('umount -fl /dev/mmcblk0p7')
+						os.system('mkfs.ext4 -F /dev/mmcblk0p7')
+						self.stop_enigma = False
+				elif emmc_multiboot1:
+					if 'mmcblk0p9' not in mount_part:
+						os.system('umount -fl /dev/mmcblk0p9')
+						os.system('mkfs.ext4 -F /dev/mmcblk0p9')
+						self.stop_enigma = False
+					cmd = "%s -r -k -m3 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_simulate4":
 				text += _("Simulate fourth partition (no write)")
-				cmd = "%s -n -r -k -m4 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
+				cmd = "%s -r -k -m4 -n '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			elif ret[1] == "imbedded_standard4":
 				text += _("Fourth partition")
-				if 'mmcblk0p9' not in mount_part:
-					os.system('umount -fl /dev/mmcblk0p9')
-					os.system('mkfs.ext4 -F /dev/mmcblk0p9')
-					self.stop_enigma = False
+				if emmc_multiboot:
+					if 'mmcblk0p9' not in mount_part:
+						os.system('umount -fl /dev/mmcblk0p9')
+						os.system('mkfs.ext4 -F /dev/mmcblk0p9')
+						self.stop_enigma = False
 				cmd = "%s -r -k -m4 '%s' > /dev/null 2>&1" % (ofgwrite_bin, dir_flash)
 			else:
 				return
@@ -1163,6 +1238,7 @@ class SearchOMBfile(Screen):
 				backup_files = []
 				no_backup_files = []
 				text = _('For backup your receiver files are needed:\n')
+				self.model = MODEL_NAME
 				if BOX_NAME == 'all':
 					if MODEL_NAME.startswith('fusion'):
 						backup_files = [("oe_kernel.bin"), ("oe_rootfs.bin")]
@@ -1199,7 +1275,12 @@ class SearchOMBfile(Screen):
 						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
 						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
 						text += 'kernel.bin/kernel1.bin, rootfs.tar.bz2'
-				self.model = MODEL_NAME
+				elif BOX_NAME == "gigablue":
+					if MODEL_NAME in ("gbquad4k", "gbue4k"):
+						backup_files = [("kernel1.bin"), ("rootfs.tar.bz2"), ("kernel.bin")]
+						no_backup_files = ["kernel_cfe_auto.bin", "rootfs.bin", "root_cfe_auto.jffs2", "root_cfe_auto.bin"]
+						text += 'kernel.bin/kernel1.bin, rootfs.tar.bz2'
+						self.model = MODEL_NAME == "gbquad4k" and "quad4k" or "ue4k"
 				try:
 					text += _('\nThe found files:')
 					for name in os.listdir(dirname):
@@ -1636,7 +1717,7 @@ def msgManualBackupClosed(ret, curdir=None):
 					cmd = DREAM_BACKUP_SCRIPT
 					if MODEL_NAME == "dm900" or MODEL_NAME == "dm920":
 						cmd = VU4K_BACKUP_SCRIPT
-				elif (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k" or MODEL_NAME == "duo4k")) or MODEL_NAME == "lunix3-4k":
+				elif (BOX_NAME == 'vu' and (MODEL_NAME == "solo4k" or MODEL_NAME == "uno4k" or MODEL_NAME == "ultimo4k" or MODEL_NAME == "uno4kse" or MODEL_NAME == "zero4k" or MODEL_NAME == "duo4k")) or MODEL_NAME == "lunix3-4k" or MODEL_NAME == "gbquad4k" or MODEL_NAME == "gbue4k":
 					cmd = VU4K_BACKUP_SCRIPT
 				elif MODEL_NAME == "hd51" or MODEL_NAME == "sf4008" or MODEL_NAME == "vs1500" or MODEL_NAME == "et11000" or MODEL_NAME == "h7":
 					cmd = HD51_BACKUP_SCRIPT

@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-VERSION="vu4k models- 20/11/2017\ncreator of the script Dimitrij (http://forums.openpli.org)\n"
+VERSION="vu4k/dmm4k/gigablue4k/lunix4k models- 21/1/2019\ncreator of the script Dimitrij (http://forums.openpli.org)\n"
 DIRECTORY="$1"
 START=$(date +%s)
 DATE=`date +%Y%m%d_%H%M`
@@ -24,19 +24,19 @@ getaddr() {
 }
 
 if [ -f /etc/issue ] ; then
-	ISSUE=`cat /etc/issue | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/issue | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/bhversion ] ; then
-	ISSUE=`cat /etc/bhversion | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/bhversion | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /proc/stb/info/vumodel ] && [ -f /etc/version ] ; then
-	ISSUE=`cat /etc/version | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/version | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 else
 	IMVER="unknown"
@@ -50,10 +50,11 @@ echo "Working directory = $WORKDIR\n"
 echo -n "Drivers = "
 opkg list-installed | grep dvb-proxy
 opkg list-installed | grep dvb-modules
+opkg list-installed | grep gigablue-platform-util
 CREATE_ZIP="$2"
 IMAGENAME="$3"
 
-if [ -f /proc/stb/info/vumodel ] && [ -n /proc/stb/info/hwmodel ]; then
+if [ -f /proc/stb/info/vumodel ] && [ ! -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ] ; then
 	MODEL=$( cat /proc/stb/info/vumodel )
 	if [ $MODEL = "solo4k" ] ; then
 		echo "Found VU+ Solo 4K\n"
@@ -88,7 +89,7 @@ if [ -f /proc/stb/info/vumodel ] && [ -n /proc/stb/info/hwmodel ]; then
 	MAINDEST="$DIRECTORY/vuplus/$MODEL"
 	EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/vuplus"
 	echo "Destination        = $MAINDEST\n"
-elif [ -f /proc/stb/info/hwmodel ]; then
+elif [ -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ]; then
 	MODEL=$( cat /proc/stb/info/hwmodel )
 	if [ $MODEL = "lunix3-4k" ] ; then
 		echo "Found Qviart lunix3 4K\n"
@@ -103,7 +104,7 @@ elif [ -f /proc/stb/info/hwmodel ]; then
 		echo "No supported receiver found!\n"
 		exit 0
 	fi
-elif [ -f /proc/stb/info/model ]; then
+elif [ -f /proc/stb/info/model ] && [ ! -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ]; then
 	MODEL=$( cat /proc/stb/info/model )
 	if [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
 		echo "Found Dreambox dm900/dm920\n"
@@ -113,6 +114,53 @@ elif [ -f /proc/stb/info/model ]; then
 		SHOWNAME="Dreambox $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
+		echo "Destination        = $MAINDEST\n"
+	else
+		echo "No supported receiver found!\n"
+		exit 0
+	fi
+elif [ -f /proc/stb/info/gbmodel ] && [ ! -f /proc/stb/info/hwmodel ]; then
+	MODEL=$( cat /proc/stb/info/gbmodel )
+	if [ $MODEL = "gbquad4k" ] ; then
+		echo "Found GigaBlue UHD Quad 4K\n"
+		MODEL="quad4k"
+		MTDROOTFS=$(readlink /dev/root)
+		if [ $MTDROOTFS = "mmcblk0p3" ]; then
+			MTD_KERNEL="mmcblk0p2"
+		fi
+		if [ $MTDROOTFS = "mmcblk0p5" ]; then
+			MTD_KERNEL="mmcblk0p4"
+		fi
+		if [ $MTDROOTFS = "mmcblk0p7" ]; then
+			MTD_KERNEL="mmcblk0p6"
+		fi
+		if [ $MTDROOTFS = "mmcblk0p9" ]; then
+			MTD_KERNEL="mmcblk0p8"
+		fi
+		KERNELNAME="kernel.bin"
+		TYPE=GIGABLUE
+		SHOWNAME="Gigablue $MODEL"
+		MAINDEST="$DIRECTORY/gigablue/$MODEL"
+		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/gigablue"
+		echo "Destination        = $MAINDEST\n"
+	elif [ $MODEL = "gbue4k" ] ; then
+		echo "Found GigaBlue UHD UE 4K\n"
+		MODEL="ue4k"
+		MTDROOTFS=$(readlink /dev/root)
+		if [ $MTDROOTFS = "mmcblk0p5" ]; then
+			MTD_KERNEL="mmcblk0p4"
+		fi
+		if [ $MTDROOTFS = "mmcblk0p7" ]; then
+			MTD_KERNEL="mmcblk0p6"
+		fi
+		if [ $MTDROOTFS = "mmcblk0p9" ]; then
+			MTD_KERNEL="mmcblk0p8"
+		fi
+		KERNELNAME="kernel.bin"
+		TYPE=GIGABLUE
+		SHOWNAME="Gigablue $MODEL"
+		MAINDEST="$DIRECTORY/gigablue/$MODEL"
+		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/gigablue"
 		echo "Destination        = $MAINDEST\n"
 	else
 		echo "No supported receiver found!\n"
@@ -176,7 +224,7 @@ $BZIP2 $WORKDIR/rootfs.tar > /dev/null 2>&1
 
 TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
-if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] ; then
+if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] || [ $TYPE = "GIGABLUE" ] ; then
 	rm -rf "$MAINDEST"
 	echo "Removed directory  = $MAINDEST\n"
 	mkdir -p "$MAINDEST" 
@@ -189,7 +237,9 @@ if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] ; then
 	elif [ $MODEL = "uno4k" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
 	else
-		echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
+		if [ $TYPE != "GIGABLUE" ] ; then
+			echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
+		fi
 	fi
 	if [ $MODEL = "zero4k" ] || [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "ultimo4k" ] || [ $MODEL = "solo4k" ] || [ $MODEL = "duo4k" ] ; then
 		echo "rename this file to 'mkpart.update' for forces create partition and kernel update." > "$MAINDEST/nomkpart.update"

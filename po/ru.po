@@ -566,3 +566,6 @@ msgstr "Показать 'Мультибут - переключатель' в м
 
 msgid "Open multiBoot switcher"
 msgstr "Открыть 'Мультибут - переключатель'"
+
+msgid "/First partition"
+msgstr "/Первый раздел"

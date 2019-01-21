@@ -8,19 +8,19 @@ DATE=`date +%Y%m%d_%H%M`
 IMAGEVERSION=`date +%Y%m%d`
 
 if [ -f /etc/issue ] ; then
-	ISSUE=`cat /etc/issue | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/issue | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/bhversion ] ; then
-	ISSUE=`cat /etc/bhversion | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/bhversion | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 elif [ -f /proc/stb/info/vumodel ] && [ -f /etc/version ] ; then
-	ISSUE=`cat /etc/version | grep . | tail -n 1 ` 
+	ISSUE=`cat /etc/version | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
 else
 	IMVER="unknown"
