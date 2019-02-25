@@ -38,9 +38,6 @@ elif [ -f /etc/bhversion ] ; then
 elif [ -f /etc/vtiversion.info ] ; then
 	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
-elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1  | sed -e 's/[\t ]//g;/^$/d'`
-	IMVER=${ISSUE%?????}
 elif [ -f /proc/stb/info/vumodel ] && [ -f /etc/version ] ; then
 	ISSUE=`cat /etc/version | grep . | tail -n 1  | sed -e 's/[\t ]//g;/^$/d'`
 	IMVER=${ISSUE%?????}
