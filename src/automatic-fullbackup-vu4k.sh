@@ -97,7 +97,7 @@ elif [ -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ]; then
 		MAINDEST="$DIRECTORY/update/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
 		echo "Destination        = $MAINDEST\n"
-	if [ $MODEL = "lunix4k" ] ; then
+	elif [ $MODEL = "lunix4k" ] ; then
 		echo "Found Qviart lunix4K\n"
 		MTD_KERNEL="mmcblk0p1"
 		KERNELNAME="oe_kernel.bin"
