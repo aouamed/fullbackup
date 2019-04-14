@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-VERSION="vu4k/dmm4k/gigablue4k/lunix4k models- 21/1/2019\ncreator of the script Dimitrij (http://forums.openpli.org)\n"
+VERSION="vu4k/dmm4k/gigablue4k/lunix4k models- 14/04/2019\ncreator of the script Dimitrij (http://forums.openpli.org)\n"
 DIRECTORY="$1"
 START=$(date +%s)
 DATE=`date +%Y%m%d_%H%M`
@@ -238,7 +238,7 @@ if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] || [ $TYPE
 	mv "$WORKDIR/$KERNELNAME" "$MAINDEST/$KERNELNAME"
 	mv "$WORKDIR/$ROOTFSTYPE" "$MAINDEST/$ROOTFSTYPE"
 	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
-	if [ $MODEL = "lunix3-4k" ] || [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
+	if [ $MODEL = "lunix3-4k" ] || [ $MODEL = "lunix4k" ] || [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
 		echo ""
 	elif [ $MODEL = "uno4k" ] || [ $MODEL = "zero4k" ] ; then
 		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
