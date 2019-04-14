@@ -284,4 +284,4 @@ if [ $SECONDS -le  9 ] ; then
 	SECONDS="0$SECONDS"
 fi
 echo "BACKUP FINISHED IN $MINUTES.$SECONDS MINUTES\n"
-exit 
+exit
