@@ -1,0 +1,571 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-02-28 19:54+0100\n"
+"PO-Revision-Date: 2019-11-13 21:23+0300\n"
+"Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language: uk\n"
+"X-Generator: Poedit 2.0.1\n"
+
+msgid ""
+"\n"
+"Backup only for NAS mounted to /media/net"
+msgstr ""
+"\n"
+"Бекап лише для NAS змонтованих в /media/net"
+
+msgid ""
+"\n"
+"Pack in zip archive current folder and add to '%s' OMB?"
+msgstr ""
+"\n"
+"Запакувати в zip архів поточну папку і додати в '%s' OMB?"
+
+msgid ""
+"\n"
+"The found files:"
+msgstr ""
+"\n"
+"Знайдені файли:"
+
+msgid ""
+"\n"
+"You are using dual multiboot!"
+msgstr ""
+"\n"
+"Ви використовуєте подвійний мульти завантажувач!"
+
+msgid "  %s (maybe error)"
+msgstr "  %s (може бути помилка)"
+
+msgid "  %s (maybe ok)"
+msgstr "  %s (може бути ок)"
+
+msgid " nothing!"
+msgstr " нічого!"
+
+msgid " ver. "
+msgstr " вер. "
+
+msgid "'%s' archive was successfully added to '%s' OMB!"
+msgstr "'%s' архів було успішно додано у '%s' OMB!"
+
+msgid "< Needs create file *(any name).fbackup in USB device >"
+msgstr "< Необхідний файл *(любое имя).fbackup в корені USB >"
+
+msgid "A recording is currently running. Please stop the recording before trying to start a flashing."
+msgstr "На даний час йде запис. Будь ласка, зупиніть запис перед початком швидкої прошивки."
+
+msgid "Add to OMB"
+msgstr "Добавити у OMB"
+
+msgid "Automatic cleanup backups"
+msgstr "Автоматичне очищення бекапів"
+
+msgid "Automatic full backup"
+msgstr "Автоматичний повний бекап"
+
+msgid "Automatic start time"
+msgstr "Час автоматичного старту"
+
+msgid "Background mode"
+msgstr "Фоновий режим"
+
+msgid "Backup location"
+msgstr "Місце збереження бекапу"
+
+msgid "Behaviour in deep standby"
+msgstr "Поведінка в глибокому очікуванні"
+
+msgid "Cancel"
+msgstr "Відміна"
+
+msgid "Choice days for create backup"
+msgstr "Вибір днів для створення бекапу"
+
+msgid "Console log"
+msgstr "Консольний лог"
+
+msgid "Console mode"
+msgstr "Режим консолі"
+
+msgid "Create a full backup image"
+msgstr "Створити повний бекап іміджу"
+
+msgid "Create backup"
+msgstr "Створити бекап"
+
+msgid "Daily automatic backup"
+msgstr "Щоденний автоматичний бекап"
+
+msgid "Days Profile"
+msgstr "Профілі днів"
+
+msgid "Disabled"
+msgstr "Відключено"
+
+msgid "Do you really want to create a full backup in directory %s ?"
+msgstr "Ви дійсно хочете створити повний бекап в каталог %s ?"
+
+msgid "Do you really want to stop the creation of backup?"
+msgstr "Ви дійсно хочете зупинити створення бекапу?"
+
+msgid "Do you really want to unpack %s ?"
+msgstr "Ви дійсно хочете розпакувати %s ?"
+
+msgid "Done"
+msgstr "Завершено"
+
+msgid "Error creating zip archive!"
+msgstr "Помилка створення zip архиву!"
+
+msgid "Error unmounting devices!"
+msgstr "Помилка відмонтування пристрою!"
+
+msgid "Exit"
+msgstr "Вихід"
+
+msgid "Exit and eject device"
+msgstr "Вихід і витягти пристрій"
+
+msgid "Failed"
+msgstr "Помилка"
+
+msgid "Flashing: "
+msgstr "Швидка прошивка: "
+
+msgid "For backup your receiver files are needed:\n"
+msgstr "Для бекапу Вашого ресивера необхідні файли:\n"
+
+msgid "For flashing your receiver files are needed:\n"
+msgstr "Для прошивки Вашого ресивера необхідні файли:\n"
+
+msgid "Friday"
+msgstr "Пятниця"
+
+msgid "Full backup for all receivers"
+msgstr "Повний бекап/прошивка для всіх ресіверів"
+
+msgid "FullBackup Configuration"
+msgstr "Налаштування FullBackup"
+
+msgid "Harddisk"
+msgstr "Жорсткий диск"
+
+msgid ""
+"In the next few seconds to start Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Run backup now?"
+msgstr ""
+"Через декілька секунд почнеться Automatic Full Backup!\n"
+"Протягом 5-7 хвилин управління ресивером буде неможливим.\n"
+"Виконати бекап зараз?"
+
+msgid "Last backup date"
+msgstr "Дата останнього бекапу"
+
+msgid "Manual"
+msgstr "В ручну"
+
+msgid "Monday"
+msgstr "Понеділок"
+
+msgid "NOT found files for flashing!\n"
+msgstr "НЕМАЄ знайдених файлів для швидкої прошивки!\n"
+
+msgid "No backup present"
+msgstr "Відсутній бекап для показу"
+
+msgid "Not selected directory backup"
+msgstr "Не вибрано каталог бекапу"
+
+msgid "Only kernel"
+msgstr "Тільки ядро"
+
+msgid "Only root"
+msgstr "Тільки імідж"
+
+msgid ""
+"Please wait!\n"
+"Greating zip archive..."
+msgstr ""
+"Почекайте будь ласка!\n"
+"Створюємо zip архів..."
+
+msgid "Please: DO NOT reboot your STB and turn off the power.\n"
+msgstr "Будь ласка: НЕ РОБІТЬ перезавантаження Вашого ресивера і не вимикайте живлення.\n"
+
+msgid "Press OK"
+msgstr "Натисніть ОК"
+
+msgid "Read error current dir, sorry."
+msgstr "Помилка читання поточного каталогу, вибачте."
+
+msgid "Restore backup"
+msgstr "Прошити бекап/імідж"
+
+msgid "Run flash"
+msgstr "Швидка прошивка"
+
+msgid "Running"
+msgstr "Запущено"
+
+msgid "Saturday"
+msgstr "Субота"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Scan at automount for create backup"
+msgstr "Сканування при авто монтуванні (створити бекап)"
+
+msgid "Second partition (only kernel)"
+msgstr "Другий розділ (тільки ядро)"
+
+msgid "Second partition (only root)"
+msgstr "Другий розділ (тільки імідж)"
+
+msgid "Second partition (root and kernel)"
+msgstr "Другий розділ (імідж і ядро)"
+
+msgid "Select action:"
+msgstr "Виберіть дію:"
+
+msgid "Select backup for add to OpenMultiboot"
+msgstr "Виберіть бекап для завантаження його в1 OpenMultiboot"
+
+msgid "Select parameter for start flash!\n"
+msgstr "Виберіть параметр для запуску швидкої прошивки!\n"
+
+msgid "Select the folder with backup"
+msgstr "Виберіть теку з бекапом"
+
+msgid "Select the option to create a backup:"
+msgstr "Виберіть варіант створення бекапу:"
+
+msgid "Show message during the start"
+msgstr "Показати повідомлення при початку бекапу"
+
+msgid "Show only found image and mtd partitions.\n"
+msgstr "Показати тільки знайдений імідж і розділи mtd.\n"
+
+msgid "Simulate (no write)"
+msgstr "Імітація (без запису)"
+
+msgid "Simulate second partition (no write)"
+msgstr "Імітація другого розділу (без запису)"
+
+msgid ""
+"Sorry!\n"
+"This boot is not flash image!"
+msgstr ""
+"Вибачте!\n"
+"Це завантаження не є флеш іміджем!"
+
+msgid "Standard (root and kernel)"
+msgstr "Умовчання (імідж і ядро)"
+
+msgid ""
+"Starting Automatic Full Backup!\n"
+"Options control panel will not be available 5-7 minutes.\n"
+"Run backup now?"
+msgstr ""
+"Починається Automatic Full Backup!\n"
+"Протягом 5-7 хвилин управління ресивером буде не доступно.\n"
+"Почекайте будь ласка ..."
+
+msgid "Sunday"
+msgstr "Неділя"
+
+msgid "The device was successfully unmounted!"
+msgstr "Пристрій успішно відмонтовано!"
+
+msgid "The image or kernel will be flashing and auto booted in few minutes.\n"
+msgstr "Імідж або ядро зараз будуть перезаписані і ресивер автоматично перезавантажиться через декілька хвилин.\n"
+
+msgid "Thursday"
+msgstr "Четвер"
+
+msgid "Tuesday"
+msgstr "Вівторок"
+
+msgid "Unzip"
+msgstr "Розпакувати"
+
+msgid "Wake up from deep standby"
+msgstr "Включати з режиму глибокого очікування"
+
+msgid ""
+"Warning!\n"
+"Use at your own risk! Make always a backup before use!\n"
+"Don't use it if you use multiple ubi volumes in ubi layer!"
+msgstr ""
+"Увага!\n"
+"Використовуйте швидку прошивку на свій страх і ризик!\n"
+"Рекомендуємо робити бекап перед кожним застосуванням!\n"
+"Не застосовувати, якщо Ви використовуєте множинні томи ubi!"
+
+msgid "Wednesday"
+msgstr "Середа"
+
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"Ви не можете використовувати ці налаштування!\n"
+"Принаймні один день тижня повинен бути активований!"
+
+msgid "Your STB will freeze during the flashing process.\n"
+msgstr "Ваш STB буде заблокований на час процесу швидкої прошивки.\n"
+
+msgid "Your receiver not supported!"
+msgstr "Ваш ресівер не підтримується!"
+
+msgid "cleanup disabled"
+msgstr "очищення вимкнено"
+
+msgid "current:  %s"
+msgstr "поточна:  %s"
+
+msgid "disabled"
+msgstr "відключено"
+
+msgid "no"
+msgstr "ні"
+
+msgid "ofgwrite will stop enigma2 now to run the flash.\n"
+msgstr "утиліта 'ofgwrite' зупинить зараз enigma2 для виконання швидкої прошивки.\n"
+
+msgid "older than 1 week"
+msgstr "старіше одного тижня"
+
+msgid "older than 2 days"
+msgstr "старіше 2 днів"
+
+msgid "older than 2 weeks"
+msgstr "старіше 2 тижнів"
+
+msgid "older than 3 days"
+msgstr "старіше 3 днів"
+
+msgid "older than 3 months"
+msgstr "старіше 3 місяців"
+
+msgid "older than 3 weeks"
+msgstr "старіше 3 тижнів"
+
+msgid "older than 4 weeks"
+msgstr "старіше 4 тижнів"
+
+msgid "type info"
+msgstr "тип інфо"
+
+msgid "type yes/no"
+msgstr "тип так/ні"
+
+msgid "wake up and shutdown after backup"
+msgstr "вкл. і викл. після бекапу"
+
+msgid "wake up for backup"
+msgstr "вкл. для бекапу"
+
+msgid "'ofgwrite' not installed!"
+msgstr "'ofgwrite' не встановлено!"
+
+msgid "'zip' not installed!"
+msgstr "'zip' не встановлено!"
+
+msgid ""
+"AFB\n"
+"Not found mount device for create full backup!"
+msgstr ""
+"AFB\n"
+"Не знайдено примонтованого пристрою для створення повного бекапу!"
+
+msgid ""
+"\"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 1500Mb free space!"
+msgstr ""
+"\"AFB\n"
+"Недостатньо вільного місця на пристрої!!\n"
+"Вам потрібно як мінімум 1500 МБ вільного місця!!"
+
+msgid ""
+"AFB\n"
+"Not enough free space on device!\n"
+"You need at least 300Mb free space!"
+msgstr ""
+"AFB\n"
+"Недостатньо вільного місця на пристрої!!\n"
+"Вам потрібно як мінімум 300 МБ вільного місця!!"
+
+msgid " as recovery"
+msgstr " як 'Recovery'"
+
+msgid " - OK show/hide"
+msgstr " - ОК приховати/показати"
+
+msgid ""
+"\n"
+"You are using  built-in multiboot from %s sections!"
+msgstr ""
+"\n"
+"Ви використовуєте вбудований мультібут із %s розділів!"
+
+msgid "Simulate third partition (no write)"
+msgstr "Імітація третього розділу (без запису)"
+
+msgid "Third partition"
+msgstr "Третій розділ"
+
+msgid "Second partition"
+msgstr "Другий розділ"
+
+msgid "Simulate fourth partition (no write)"
+msgstr "Імітація четвертого розділу (без запису)"
+
+msgid "Fourth partition"
+msgstr "Четвертий раздел"
+
+msgid "ofgwrite flashing ready.\n"
+msgstr "'ofgwrite' - швидка прошивка завершена.\n"
+
+msgid "please press exit to go back to the menu.\n"
+msgstr "Натисніть 'Вихід', щоб повернутися в меню.\n"
+
+msgid "Install util-linux-blkid?"
+msgstr "Встановити util-linux-blkid?"
+
+msgid " (unknown mode)"
+msgstr " (невідомий режим)"
+
+msgid "2160p50 with PiP"
+msgstr "2160p50 з PiP"
+
+msgid "2160p60 without PiP (default)"
+msgstr "2160p60 без PiP (замовчування)"
+
+msgid "Alternative Image 1 partition for boot repair not found."
+msgstr "Альтернативний імідж першого розділу для відновлення завантаження не знайдено."
+
+msgid "Can not repair file %s"
+msgstr "Не вдается відновити файл %s"
+
+msgid "Can not write file %s"
+msgstr "Не вдається перезаписати файл %s"
+
+msgid "Caution, next boot is starts with these settings!"
+msgstr "Увага, наступне завантаження почнеться з цих налаштувань!"
+
+msgid "Command line error!"
+msgstr "Помилка командного рядка!"
+
+msgid "Current bootsettings: %s (%s)%s"
+msgstr "Поточні налаштування: %s (%s)%s"
+
+msgid "Current load boxmode: %s"
+msgstr "Поточний завантажений режим ресивера: %s"
+
+msgid "Do you want to reboot now with selected image?"
+msgstr "Ви хочете зробити перезавантаження ресивера зараз з обраним іміджем?"
+
+msgid "Do you want to reboot now?"
+msgstr "Ви хочете зробити перезавантаження ресивера зараз?"
+
+msgid "Error in file %s"
+msgstr "Помилка в файлі %s"
+
+msgid ""
+"Error reading image from file '/boot/%s'!\n"
+"Please flashing another image for this partition."
+msgstr ""
+"Помилка читання іміджу з файлу '/boot/%s'!\n"
+"Будь ласка, прошийте інший імідж для цього розділу."
+
+msgid "File '/boot/%s' copy to '/boot/STARTUP' failed!"
+msgstr "Помилка при копіюванні файлу '/boot/%s' в '/boot/STARTUP' !"
+
+msgid "File not found - rename failed!"
+msgstr "Файл не знайдено - помилка при перейменуванні!"
+
+msgid "Image %s"
+msgstr "Імідж %s"
+
+msgid "MultiBoot STARTUP switcher"
+msgstr "Мультибут - STARTUP перемикач"
+
+msgid "Name already exists - rename failed!"
+msgstr "Така назва вже існує - помилка при перейменуванні!"
+
+msgid "Next boot will start from Image 1."
+msgstr "Наступне завантаження почнеться з іміжда 1."
+
+msgid "Please enter new name:"
+msgstr "Будь ласка, введіть нову назву іміджу:"
+
+msgid "Rename"
+msgstr "Перейменувати"
+
+msgid "Rename failed!"
+msgstr "Помилка при перейменуванні!"
+
+msgid "Select Image: %s"
+msgstr "Вибір іміджу: %s"
+
+msgid "Select bootoption: %s"
+msgstr "Вибір налаштувань завантаження: %s"
+
+msgid "Select bootoption: not supported - see info"
+msgstr "Налаштування завантаження: не підтримується - див. інфо"
+
+msgid "Unable to read image number"
+msgstr "Неможливо прочитати номер іміджу"
+
+msgid "Warning!Please install util-linux-blkid."
+msgstr "Увага! Необхідно встановити util-linux-blkid."
+
+msgid "Write error!"
+msgstr "Помилка при  записі!"
+
+msgid "Wrong Bootsettings detected!"
+msgstr "Знайдені невірні налаштуваня завантаження!"
+
+msgid ""
+"Your box needs Bootloaderversion(s)\n"
+"\n"
+"%s\n"
+"\n"
+"to make compatible with Bootoptions!"
+msgstr ""
+"Для Вашого ресивера необхідний Bootloader версії\n"
+"\n"
+"%s\n"
+"\n"
+"для сумісності з налаштуваннями завантаження!"
+
+msgid "no image found"
+msgstr "не знайдено іміджу"
+
+msgid "placeholder message 2"
+msgstr "Заповнювач повідомлення 2"
+
+msgid "unknown"
+msgstr "невідомо"
+
+msgid "MultiBoot switcher"
+msgstr "Мультибут - перемикач"
+
+msgid "Show multiBoot switcher in menu shutdown"
+msgstr "Показати 'Мультибут - перемикач' в меню вимкнення"
+
+msgid "Open multiBoot switcher"
+msgstr "Відкрити 'Мультибут - перемикач'"
+
+msgid "/First partition"
+msgstr "/Перший розділ"
