@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-VERSION="20/11/2017\ncreators of the script Pedro_Newbie and Dimitrij (http://forums.openpli.org)\n"
+VERSION="04/01/2020\ncreators of the script Pedro_Newbie and Dimitrij (http://forums.openpli.org)\n"
 DIRECTORY="$1"
 START=$(date +%s)
 DATE=`date +%Y%m%d_%H%M`
@@ -71,6 +71,14 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
 		SHOWNAME="MK-Digital $MODEL"
+		MAINDEST="$DIRECTORY/$MODEL"
+		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
+		echo "Destination        = $MAINDEST\n"
+	elif grep viper /proc/stb/info/boxtype > /dev/null ; then
+		TYPE=VIPER
+		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096"
+		UBINIZE_ARGS="-m 2048 -p 128KiB"
+		SHOWNAME="Amiko Viper $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
@@ -384,7 +392,7 @@ if [ $TYPE = "FUSION" ] ; then
 	fi
 fi
 
-if [ $TYPE = "FORMULER" -o $TYPE = "MUTANT" -o $TYPE = "XPEED" -o $TYPE = "ZGEMMA" -o $TYPE = "MIRACLEBOX" ] ; then
+if [ $TYPE = "FORMULER" -o $TYPE = "MUTANT" -o $TYPE = "XPEED" -o $TYPE = "ZGEMMA" -o $TYPE = "MIRACLEBOX" -o $TYPE = "VIPER" ] ; then
 	rm -rf "$MAINDEST"
 	echo "Removed directory  = $MAINDEST\n"
 	mkdir -p "$MAINDEST"
