@@ -61,7 +61,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
 		SHOWNAME="ET/Xtrend $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 		if grep boot /proc/mtd > /dev/null ; then
@@ -73,7 +73,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
 		SHOWNAME="MK-Digital $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 	elif grep viper /proc/stb/info/boxtype > /dev/null ; then
@@ -82,7 +82,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		UBINIZE_ARGS="-m 2048 -p 128KiB -s 2048"
 		SHOWNAME="Amiko Viper $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
-		MTD_KERNEL ="mtd2"
+		MTD_KERNEL="mtd2"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 	elif grep ini /proc/stb/info/boxtype > /dev/null ; then
@@ -95,7 +95,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		fi
 		SHOWNAME="Golden Interstar Xpeed LX or LX3 $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 	elif grep xpeedlx /proc/stb/info/boxtype > /dev/null ; then
@@ -104,14 +104,14 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
 		SHOWNAME="Golden Interstar Xpeed LX Class S2 or C $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
 		echo "Destination        = $MAINDEST\n"
 	elif grep formuler /proc/stb/info/boxtype > /dev/null ; then
 		TYPE=FORMULER
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Openbox (Formuler1/3/4) $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -120,7 +120,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=SPYCAT
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd0"
+		MTD_KERNEL="mtd0"
 		SHOWNAME="Spycat (mini)"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -129,7 +129,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=EDISION
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd0"
+		MTD_KERNEL="mtd0"
 		SHOWNAME="Edision OS mega / mini(+) / nino"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -138,7 +138,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=ZGEMMA
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Zgemma H.S / H.2S / H.2H $MODEL"
 		MAINDEST="$DIRECTORY/zgemma/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/zgemma"
@@ -147,7 +147,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=ZGEMMA
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Zgemma H5 $MODEL"
 		MAINDEST="$DIRECTORY/zgemma/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/zgemma"
@@ -165,7 +165,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=ZGEMMA
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Zgemma I 55"
 		MAINDEST="$DIRECTORY/zgemma/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/zgemma"
@@ -182,7 +182,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 			MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096"
 		fi
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="HD2400/HD1100/HD500C/HD1200/HD1500/HD1265/HD11 $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -191,7 +191,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=MIRACLEBOX
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Miraclebox Premium Micro"
 		MAINDEST="$DIRECTORY/miraclebox/micro"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -200,7 +200,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=MIRACLEBOX
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Miraclebox Premium Micro V2"
 		MAINDEST="$DIRECTORY/miraclebox/microv2"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -209,7 +209,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=MIRACLEBOX
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Miraclebox Premium Twin+"
 		MAINDEST="$DIRECTORY/miraclebox/twinplus"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -218,7 +218,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 		TYPE=TIVIARMIN
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 8192"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd1"
+		MTD_KERNEL="mtd1"
 		SHOWNAME="Tiviar mini plus"
 		MAINDEST="$DIRECTORY/$MODEL"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
@@ -244,7 +244,7 @@ elif [ -f /proc/stb/info/vumodel ] ; then
 	UBINIZE_ARGS="-m 2048 -p 128KiB"
 	MTD_KERNEL ="mtd1"
 	if [ $MODEL = "solo2" ] || [ $MODEL = "duo2" ] || [ $MODEL = "solose" ] || [ $MODEL = "zero" ] ; then
-		MTD_KERNEL ="mtd2"
+		MTD_KERNEL="mtd2"
 	fi
 elif [ -f /proc/stb/info/hwmodel ] ; then
 	MODEL=$( cat /proc/stb/info/hwmodel )
@@ -252,7 +252,7 @@ elif [ -f /proc/stb/info/hwmodel ] ; then
 		TYPE=FUSION
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd2"
+		MTD_KERNEL="mtd2"
 		SHOWNAME="Xsarius $MODEL"
 		MAINDEST="$DIRECTORY/update/$MODEL/cfe"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
@@ -261,7 +261,7 @@ elif [ -f /proc/stb/info/hwmodel ] ; then
 		TYPE=FUSION
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd2"
+		MTD_KERNEL="mtd2"
 		SHOWNAME="Xsarius $MODEL"
 		MAINDEST="$DIRECTORY/update/$MODEL/cfe"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
@@ -276,7 +276,7 @@ elif [ -f /proc/stb/info/gbmodel ] ; then
 		TYPE=GIGABLUE
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
 		UBINIZE_ARGS="-m 2048 -p 128KiB"
-		MTD_KERNEL ="mtd2"
+		MTD_KERNEL="mtd2"
 		SHOWNAME="Gigablue Quad $MODEL"
 		MAINDEST="$DIRECTORY/gigablue/quadplus"
 		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/gigablue/quadplus"
