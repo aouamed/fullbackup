@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-VERSION="04/01/2020\ncreators of the script Pedro_Newbie and Dimitrij (http://forums.openpli.org)\n"
+VERSION="21/01/2020\ncreators of the script Pedro_Newbie and Dimitrij (http://forums.openpli.org)\n"
 DIRECTORY="$1"
 START=$(date +%s)
 DATE=`date +%Y%m%d_%H%M`
@@ -79,7 +79,7 @@ if [ -f /proc/stb/info/boxtype ] ; then
 	elif grep viper /proc/stb/info/boxtype > /dev/null ; then
 		TYPE=VIPER
 		MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096"
-		UBINIZE_ARGS="-m 2048 -p 128KiB -s 2048"
+		UBINIZE_ARGS="-m 2048 -p 128KiB"
 		SHOWNAME="Amiko Viper $MODEL"
 		MAINDEST="$DIRECTORY/$MODEL"
 		MTD_KERNEL="mtd2"
@@ -318,6 +318,7 @@ echo "To stop creating a backup, press the Menu button.\n"
 sleep 2
 
 ## PREPARING THE BUILDING ENVIRONMENT
+echo "Model $MODEL\n"
 rm -rf "$WORKDIR"
 echo "Remove directory   = $WORKDIR\n"
 mkdir -p "$WORKDIR"
