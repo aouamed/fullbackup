@@ -1,15 +1,10 @@
 #!/bin/sh
-#
-
-VERSION="vu4k/dmm4k/gigablue4k/lunix4k models- 14/04/2019\ncreator of the script Dimitrij (http://forums.openpli.org)\n"
-DIRECTORY="$1"
-START=$(date +%s)
-DATE=`date +%Y%m%d_%H%M`
-IMAGEVERSION=`date +%Y%m%d`
-MKFS=/bin/tar
-BZIP2=/usr/bin/bzip2
-ROOTFSTYPE="rootfs.tar.bz2"
-WORKDIR="$DIRECTORY/bi"
+###############################################################################
+#                      FULL BACKUP UYILITY FOR  VU+                           #
+#        Tools original by scope34 with additions by Dragon48 & DrData        #
+#               modified by Pedro_Newbie (pedro.newbie@gmail.com)             #
+#                       modified by meo & dpeddi                              #
+###############################################################################
 
 getaddr() {
 	python - $1 $2<<-"EOF"
@@ -23,265 +18,313 @@ getaddr() {
 	EOF
 }
 
-if [ -f /etc/issue ] ; then
-	ISSUE=`cat /etc/issue | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
-	IMVER=${ISSUE%?????}
-elif [ -f /etc/bhversion ] ; then
-	ISSUE=`cat /etc/bhversion | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
-	IMVER=${ISSUE%?????}
-elif [ -f /etc/vtiversion.info ] ; then
-	ISSUE=`cat /etc/vtiversion.info | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
-	IMVER=${ISSUE%?????}
-elif [ -f /proc/stb/info/vumodel ] && [ -f /etc/version ] ; then
-	ISSUE=`cat /etc/version | grep . | tail -n 1 | sed -e 's/[\t ]//g;/^$/d'`
-	IMVER=${ISSUE%?????}
-else
-	IMVER="unknown"
+START=$(date +%s)
+
+if [ $# = 0 ]; then
+	echo "Error: missing target device specification"
+	echo "       mount the target device from blue panel before running this tool"
+	exit
 fi
 
-echo "Script date = $VERSION\n"
-echo "Back-up media = $DIRECTORY\n"
-df -h "$DIRECTORY"
-echo "Back-up date_time = $DATE\n"
-echo "Working directory = $WORKDIR\n"
-echo -n "Drivers = "
-opkg list-installed | grep dvb-proxy
-opkg list-installed | grep dvb-modules
-opkg list-installed | grep gigablue-platform-util
-CREATE_ZIP="$2"
-IMAGENAME="$3"
+DIRECTORY=$1
+DATE=`date +%Y%m%d_%H%M`
+IMAGEVERSION=`date +%Y%m%d`
 
-if [ -f /proc/stb/info/vumodel ] && [ ! -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ] ; then
+# TESTING FOR UBIFS
+if grep rootfs /proc/mounts | grep ubifs > /dev/null; then
+	ROOTFSTYPE=ubifs
+	MKUBIFS_ARGS="-m 2048 -e 126976 -c 4096 -F"
+	UBINIZE_ARGS="-m 2048 -p 128KiB"
+else
+# NO UBIFS THEN JFFS2
+	ROOTFSTYPE=jffs2
+	MTDROOT=0
+	MTDBOOT=2
+	JFFS2OPTIONS="--eraseblock=0x20000 -n -l"
+fi
+
+MKFS=/usr/sbin/mkfs.$ROOTFSTYPE
+UBINIZE=/usr/sbin/ubinize
+NANDDUMP=/usr/sbin/nanddump
+WORKDIR=$DIRECTORY/bi
+TARGET="XX"
+
+if [ -f /proc/stb/info/vumodel ] ; then
 	MODEL=$( cat /proc/stb/info/vumodel )
-	if [ $MODEL = "solo4k" ] ; then
-		echo "Found VU+ Solo 4K\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="kernel_auto.bin"
-	elif [ $MODEL = "uno4k" ] ; then
-		echo "Found VU+ Uno 4K\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="kernel_auto.bin"
-	elif [ $MODEL = "uno4kse" ] ; then
-		echo "Found VU+ Uno 4K se\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="kernel_auto.bin"
-	elif [ $MODEL = "ultimo4k" ] ; then
-		echo "Found VU+ Ultimo 4K\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="kernel_auto.bin"
-	elif [ $MODEL = "zero4k" ] ; then
-		echo "Found VU+ Zero 4K\n"
-		MTD_KERNEL="mmcblk0p4"
-		KERNELNAME="kernel_auto.bin"
-	elif [ $MODEL = "duo4k" ] ; then
-		echo "Found VU+ Duo 4K\n"
-		MTD_KERNEL="mmcblk0p6"
-		KERNELNAME="kernel_auto.bin"
-	else
-		echo "No supported receiver found!\n"
-		exit 0
-	fi
 	TYPE=VU
-	SHOWNAME="Vu+ $MODEL"
-	MAINDEST="$DIRECTORY/vuplus/$MODEL"
-	EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/vuplus"
-	echo "Destination        = $MAINDEST\n"
-elif [ -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ]; then
-	MODEL=$( cat /proc/stb/info/hwmodel )
-	if [ $MODEL = "lunix3-4k" ] ; then
-		echo "Found Qviart lunix3 4K\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="oe_kernel.bin"
-		TYPE=QVIART
-		SHOWNAME="Qviart $MODEL"
-		MAINDEST="$DIRECTORY/update/$MODEL"
-		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
-		echo "Destination        = $MAINDEST\n"
-	elif [ $MODEL = "lunix4k" ] ; then
-		echo "Found Qviart lunix4K\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="oe_kernel.bin"
-		TYPE=QVIART
-		SHOWNAME="Qviart $MODEL"
-		MAINDEST="$DIRECTORY/update/$MODEL"
-		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/update"
-		echo "Destination        = $MAINDEST\n"
-	else
-		echo "No supported receiver found!\n"
-		exit 0
-	fi
-elif [ -f /proc/stb/info/model ] && [ ! -f /proc/stb/info/hwmodel ] && [ ! -f /proc/stb/info/gbmodel ]; then
-	MODEL=$( cat /proc/stb/info/model )
-	if [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
-		echo "Found Dreambox dm900/dm920\n"
-		MTD_KERNEL="mmcblk0p1"
-		KERNELNAME="kernel.bin"
-		TYPE=DREAMBOX
-		SHOWNAME="Dreambox $MODEL"
-		MAINDEST="$DIRECTORY/$MODEL"
-		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE"
-		echo "Destination        = $MAINDEST\n"
-	else
-		echo "No supported receiver found!\n"
-		exit 0
-	fi
-elif [ -f /proc/stb/info/gbmodel ] && [ ! -f /proc/stb/info/hwmodel ]; then
-	MODEL=$( cat /proc/stb/info/gbmodel )
-	if [ $MODEL = "gbquad4k" ] ; then
-		echo "Found GigaBlue UHD Quad 4K\n"
-		MODEL="quad4k"
-		MTDROOTFS=$(readlink /dev/root)
-		if [ $MTDROOTFS = "mmcblk0p3" ]; then
-			MTD_KERNEL="mmcblk0p2"
-		fi
-		if [ $MTDROOTFS = "mmcblk0p5" ]; then
-			MTD_KERNEL="mmcblk0p4"
-		fi
-		if [ $MTDROOTFS = "mmcblk0p7" ]; then
-			MTD_KERNEL="mmcblk0p6"
-		fi
-		if [ $MTDROOTFS = "mmcblk0p9" ]; then
-			MTD_KERNEL="mmcblk0p8"
-		fi
-		KERNELNAME="kernel.bin"
-		TYPE=GIGABLUE
-		SHOWNAME="Gigablue $MODEL"
-		MAINDEST="$DIRECTORY/gigablue/$MODEL"
-		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/gigablue"
-		echo "Destination        = $MAINDEST\n"
-	elif [ $MODEL = "gbue4k" ] ; then
-		echo "Found GigaBlue UHD UE 4K\n"
-		MODEL="ue4k"
-		MTDROOTFS=$(readlink /dev/root)
-		if [ $MTDROOTFS = "mmcblk0p5" ]; then
-			MTD_KERNEL="mmcblk0p4"
-		fi
-		if [ $MTDROOTFS = "mmcblk0p7" ]; then
-			MTD_KERNEL="mmcblk0p6"
-		fi
-		if [ $MTDROOTFS = "mmcblk0p9" ]; then
-			MTD_KERNEL="mmcblk0p8"
-		fi
-		KERNELNAME="kernel.bin"
-		TYPE=GIGABLUE
-		SHOWNAME="Gigablue $MODEL"
-		MAINDEST="$DIRECTORY/gigablue/$MODEL"
-		EXTRA="$DIRECTORY/automatic_fullbackup/$DATE/gigablue"
-		echo "Destination        = $MAINDEST\n"
-	else
-		echo "No supported receiver found!\n"
-		exit 0
-	fi
+	SHOWNAME="Vu+ ${MODEL}"
+	MAINDEST=$DIRECTORY/vuplus/${MODEL}
+	EXTRA=$DIRECTORY/fullbackup_${MODEL}/$DATE/vuplus	
 else
-	echo "No supported receiver found!\n"
+	echo "No supported receiver found!"
 	exit 0
 fi
 
+## START THE REAL BACK-UP PROCESS
+echo "$SHOWNAME" | tr  a-z A-Z
+echo "BACK-UP TOOL, FOR MAKING A COMPLETE BACK-UP"
+echo " "
+echo "Please be patient, ... will take about 5-7 minutes for this system."
+echo " "
+
+## TESTING IF ALL THE TOOLS FOR THE BUILDING PROCESS ARE PRESENT
 if [ ! -f $MKFS ] ; then
-	echo "NO TAR FOUND, ABORTING\n"
+	echo $MKFS; echo "not found."
 	exit 0
 fi
-if [ ! -f "$BZIP2" ] ; then 
-	echo "$BZIP2 not installed yet, now installing\n"
-	opkg update > /dev/null 2>&1
-	opkg install bzip2 > /dev/null 2>&1
-	echo "Exit, try again\n"
-	sleep 10
+if [ ! -f $NANDDUMP ] ; then
+	echo $NANDDUMP ;echo "not found."
 	exit 0
 fi
-
-echo "Starting Full Backup!\nOptions control panel will not be available 2-15 minutes.\nPlease wait ..."
-echo "--------------------------"
-
-control_c(){
-   echo "Control C was pressed, quiting..."
-   umount /tmp/bi/root 2>/dev/null
-   rmdir /tmp/bi/root 2>/dev/null
-   rmdir /tmp/bi 2>/dev/null
-   rm -rf "$WORKDIR" 2>/dev/null
-   exit 255
-}
-trap control_c SIGINT
-
-echo "\nWARNING!\n"
-echo "To stop creating a backup, press the Menu button.\n"
-sleep 2
 
 ## PREPARING THE BUILDING ENVIRONMENT
-rm -rf "$WORKDIR"
-echo "Remove directory   = $WORKDIR\n"
-mkdir -p "$WORKDIR"
-echo "Recreate directory = $WORKDIR\n"
+rm -rf $WORKDIR
+mkdir -p $WORKDIR
 mkdir -p /tmp/bi/root
-echo "Create directory   = /tmp/bi/root\n"
 sync
 mount --bind / /tmp/bi/root
 
-#dd if=/dev/$MTD_KERNEL of=$WORKDIR/kernel.dump
-#ADDR=$(getaddr $WORKDIR/kernel.dump 44)
-#dd if=$WORKDIR/kernel.dump of=$WORKDIR/$KERNELNAME bs=$ADDR count=1 && rm $WORKDIR/kernel.dump
-echo "Kernel resides on /dev/$MTD_KERNEL\n"
-dd if=/dev/$MTD_KERNEL of=$WORKDIR/$KERNELNAME > /dev/null 2>&1
+unset REBOOT_UPDATE
+unset FORCE_UPDATE
+unset ROOTFSDUMP_FILENAME
+unset KERNELDUMP_FILENAME
+unset SPLASHDUMP_FILENAME
 
-echo "Start creating rootfs.tar\n"
-#$MKFS -jcf $WORKDIR/$ROOTFSTYPE -C /tmp/bi/root .
-$MKFS -cf $WORKDIR/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* . > /dev/null 2>&1
-$BZIP2 $WORKDIR/rootfs.tar > /dev/null 2>&1
+KERNELDUMP_MODE=nanddump
+SPLASHDUMP_MODE=nanddump
+INITRDDUMP_MODE=nanddump
 
-TSTAMP="$(date "+%Y-%m-%d-%Hh%Mm")"
 
-if [ $TYPE = "VU" ] || [ $TYPE = "QVIART" ] || [ $TYPE = "DREAMBOX" ] || [ $TYPE = "GIGABLUE" ] ; then
-	rm -rf "$MAINDEST"
-	echo "Removed directory  = $MAINDEST\n"
-	mkdir -p "$MAINDEST" 
-	echo "Created directory  = $MAINDEST\n"
-	mv "$WORKDIR/$KERNELNAME" "$MAINDEST/$KERNELNAME"
-	mv "$WORKDIR/$ROOTFSTYPE" "$MAINDEST/$ROOTFSTYPE"
-	echo "$MODEL-$IMAGEVERSION" > "$MAINDEST/imageversion"
-	if [ $MODEL = "lunix3-4k" ] || [ $MODEL = "lunix4k" ] || [ $MODEL = "dm900" ] || [ $MODEL = "dm920" ] ; then
-		echo ""
-	elif [ $MODEL = "uno4k" ] || [ $MODEL = "zero4k" ] ; then
-		echo "rename this file to 'force.update' when need confirmation" > "$MAINDEST/noforce.update"
-	else
-		if [ $TYPE != "GIGABLUE" ] ; then
-			echo "This file forces a reboot after the update" > "$MAINDEST/reboot.update"
+echo " "
+echo "Cleaning target directory!"
+
+rm -rf $MAINDEST
+mkdir -p $MAINDEST
+#mkdir -p $EXTRA/${MODEL}
+
+case ${MODEL} in
+	solo2)
+		ROOTFS_EXT=bin
+		INITRD=initrd_cfe_auto.bin
+		REBOOT_UPDATE=yes
+	;;
+	duo2)
+		ROOTFS_EXT=bin
+		INITRD=initrd_cfe_auto.bin
+		REBOOT_UPDATE=yes
+	;;
+	solose)
+		ROOTFS_EXT=bin
+		INITRD=initrd_cfe_auto.bin
+		FORCE_UPDATE=yes
+	;;
+	zero)
+		ROOTFS_EXT=bin
+		INITRD=initrd_cfe_auto.bin
+		FORCE_UPDATE=yes
+	;;
+	solo4k)
+		REBOOT_UPDATE=yes
+		BKLDEV=/dev/mmcblk0
+		KERNELDUMP_MODE=dd
+		SPLASHDUMP_MODE=dd
+		INITRDDUMP_MODE=dd
+		ROOTFSTYPE=tar.bz2
+
+		KERNELDUMP_FILENAME=kernel_auto.bin
+		SPLASHDUMP_FILENAME=splash_auto.bin
+		INITRDDUMP_FILENAME=initrd_auto.bin
+		ROOTFSDUMP_FILENAME=rootfs.tar.bz2
+	;;
+	ultimo4k)
+		REBOOT_UPDATE=yes
+		BKLDEV=/dev/mmcblk0
+		KERNELDUMP_MODE=dd
+		SPLASHDUMP_MODE=dd
+		INITRDDUMP_MODE=dd
+		ROOTFSTYPE=tar.bz2
+
+		KERNELDUMP_FILENAME=kernel_auto.bin
+		SPLASHDUMP_FILENAME=splash_auto.bin
+		INITRDDUMP_FILENAME=initrd_auto.bin
+		ROOTFSDUMP_FILENAME=rootfs.tar.bz2
+	;;
+	uno4k)
+		REBOOT_UPDATE=yes
+		BKLDEV=/dev/mmcblk0
+		KERNELDUMP_MODE=dd
+		SPLASHDUMP_MODE=dd
+		INITRDDUMP_MODE=dd
+		ROOTFSTYPE=tar.bz2
+
+		KERNELDUMP_FILENAME=kernel_auto.bin
+		SPLASHDUMP_FILENAME=splash_auto.bin
+		INITRDDUMP_FILENAME=initrd_auto.bin
+		ROOTFSDUMP_FILENAME=rootfs.tar.bz2
+		FORCE_UPDATE=yes
+	;;
+	zero4k)
+		REBOOT_UPDATE=yes
+		BKLDEV=/dev/mmcblk0
+		KERNELDUMP_MODE=dd
+		SPLASHDUMP_MODE=dd
+		INITRDDUMP_MODE=dd
+		ROOTFSTYPE=tar.bz2
+
+		KERNELDUMP_FILENAME=kernel_auto.bin
+		SPLASHDUMP_FILENAME=splash_auto.bin
+		INITRDDUMP_FILENAME=initrd_auto.bin
+		ROOTFSDUMP_FILENAME=rootfs.tar.bz2
+		FORCE_UPDATE=yes
+	;;
+	uno4kse)
+		REBOOT_UPDATE=yes
+		BKLDEV=/dev/mmcblk0
+		KERNELDUMP_MODE=dd
+		SPLASHDUMP_MODE=dd
+		INITRDDUMP_MODE=dd
+		ROOTFSTYPE=tar.bz2
+
+		KERNELDUMP_FILENAME=kernel_auto.bin
+		SPLASHDUMP_FILENAME=splash_auto.bin
+		INITRDDUMP_FILENAME=initrd_auto.bin
+		ROOTFSDUMP_FILENAME=rootfs.tar.bz2
+		FORCE_UPDATE=yes
+	;;
+	*)
+		ROOTFS_EXT=jffs2
+	;;
+esac
+
+[[ -z ${KERNELDUMP_FILENAME} ]] && KERNELDUMP_FILENAME=kernel_cfe_auto.bin
+[[ -z ${SPLASHDUMP_FILENAME} ]] && SPLASHDUMP_FILENAME=splash_cfe_auto.bin
+[[ -z ${ROOTFSDUMP_FILENAME} ]] && ROOTFSDUMP_FILENAME=root_cfe_auto.${ROOTFS_EXT}
+
+## DUMP ROOTFS
+case $ROOTFSTYPE in
+    jffs2)
+	echo "Create: root.jffs2"
+	$MKFS --root=/tmp/bi/root --faketime --output=$WORKDIR/root.$ROOTFSTYPE $JFFS2OPTIONS
+    ;;
+    ubifs)
+	echo "Create: root.ubifs"
+	echo \[ubifs\] > $WORKDIR/ubinize.cfg
+	echo mode=ubi >> $WORKDIR/ubinize.cfg
+	echo image=$WORKDIR/root.ubi >> $WORKDIR/ubinize.cfg
+	echo vol_id=0 >> $WORKDIR/ubinize.cfg
+	echo vol_type=dynamic >> $WORKDIR/ubinize.cfg
+	echo vol_name=rootfs >> $WORKDIR/ubinize.cfg
+	echo vol_flags=autoresize >> $WORKDIR/ubinize.cfg
+	touch $WORKDIR/root.ubi
+	chmod 644 $WORKDIR/root.ubi
+	#cp -ar /tmp/bi/root $WORKDIR/root
+	#$MKFS -r $WORKDIR/root -o $WORKDIR/root.ubi $MKUBIFS_ARGS
+	$MKFS -r /tmp/bi/root -o $WORKDIR/root.ubi $MKUBIFS_ARGS || rm $WORKDIR/root.ubi
+	$UBINIZE -o $WORKDIR/root.$ROOTFSTYPE $UBINIZE_ARGS $WORKDIR/ubinize.cfg || rm $WORKDIR/root.$ROOTFSTYPE
+    ;;
+    tar.bz2)
+	tar -jcf $WORKDIR/root.$ROOTFSTYPE -C /tmp/bi/root . || rm $WORKDIR/root.$ROOTFSTYPE
+    ;;
+esac
+chmod 644 $WORKDIR/root.$ROOTFSTYPE
+mv $WORKDIR/root.$ROOTFSTYPE $MAINDEST/${ROOTFSDUMP_FILENAME} || rm $MAINDEST/${ROOTFSDUMP_FILENAME}
+
+echo "Create: kerneldump"
+case ${KERNELDUMP_MODE} in
+	dd)
+		DDDEV=$(sfdisk -d ${BKLDEV} | sed -n '/name="kernel"/s/ :.*//p')
+		dd if=${DDDEV} of=$WORKDIR/kernel.dump || rm $WORKDIR/kernel.dump
+		#dd if=kernel.dump bs=1 count=4 skip=44 (46 45 44) -->size
+	;;
+	*)
+		kernelmtd=$(cat /proc/mtd  | grep kernel | cut -d\: -f1)
+		nanddump /dev/$kernelmtd -q > $WORKDIR/kernel.dump || rm $WORKDIR/kernel.dump
+	;;
+esac
+#mv $WORKDIR/kernel.dump $MAINDEST/${KERNELDUMP_FILENAME} || rm $MAINDEST/${KERNELDUMP_FILENAME}
+ADDR=$(getaddr $WORKDIR/kernel.dump 44)
+dd if=$WORKDIR/kernel.dump of=$MAINDEST/$KERNELDUMP_FILENAME bs=$ADDR count=1 && rm $WORKDIR/kernel.dump || rm $MAINDEST/$KERNELDUMP_FILENAME
+
+##DUMP SPLASH
+echo "Create: splashdump"
+case ${SPLASHDUMP_MODE} in
+	dd)
+		DDDEV=$(sfdisk -d ${BKLDEV} | sed -n '/name="splash"/s/ :.*//p')
+		dd if=${DDDEV} of=$WORKDIR/splash.dump || rm $WORKDIR/splash.dump
+		#543 -->size
+		#mv $WORKDIR/kernel_auto.bin || rm $MAINDEST/kernel_auto.bin
+	;;
+	*)
+		splashmtd=$(cat /proc/mtd  | grep splash | cut -d\: -f1)
+		if [ x$splashmtd != x ]; then
+			nanddump /dev/$splashmtd -q > $WORKDIR/splash.dump || rm $WORKDIR/splash.dump
 		fi
-	fi
-	if [ $MODEL = "zero4k" ] || [ $MODEL = "uno4k" ] || [ $MODEL = "uno4kse" ] || [ $MODEL = "ultimo4k" ] || [ $MODEL = "solo4k" ] || [ $MODEL = "duo4k" ] ; then
-		echo "rename this file to 'mkpart.update' for forces create partition and kernel update." > "$MAINDEST/nomkpart.update"
-	fi
-	if [ -z "$CREATE_ZIP" ] ; then
-		mkdir -p "$EXTRA/$MODEL"
-		echo "Created directory  = $EXTRA/$MODEL\n"
-		touch "$MAINDEST/$IMVER"
-		cp -r "$MAINDEST" "$EXTRA" 
-		touch "$DIRECTORY/automatic_fullbackup/.timestamp"
-	else
-		if [ $CREATE_ZIP != "none" ] ; then
-			echo "Create zip archive..."
-			cd $DIRECTORY && $CREATE_ZIP -r $DIRECTORY/backup-$IMAGENAME-$MODEL-$TSTAMP.zip . -i /$MODEL/*
-			cd
-		fi
-	fi
-	if [ -f "$MAINDEST/rootfs.tar.bz2" -a -f "$MAINDEST/$KERNELNAME" ] ; then
-		echo " "
-		echo "BACK-UP MADE SUCCESSFULLY IN: $MAINDEST\n"
-	else
-		echo " "
-		echo "Image creation FAILED!\n"
-	fi
+	;;
+esac
+if [ -s $WORKDIR/splash.dump ]; then
+	DOWNLOADSPLASH=0
+	#mv $WORKDIR/splash.dump $MAINDEST/$SPLASHDUMP_FILENAME || rm $MAINDEST/$SPLASHDUMP_FILENAME
+	ADDR=$(getaddr $WORKDIR/splash.dump 2)
+	dd if=$WORKDIR/splash.dump of=$MAINDEST/$SPLASHDUMP_FILENAME bs=$ADDR count=1 && rm $WORKDIR/splash.dump || rm $MAINDEST/$SPLASHDUMP_FILENAME
 fi
+
+##DUMP INITRD
+echo "Create: initrddump"
+case ${INITRDDUMP_MODE} in
+	dd)
+		DDDEV=$(sfdisk -d ${BKLDEV} | sed -n '/name="initrd"/s/ :.*//p')
+		dd if=${DDDEV} of=$WORKDIR/initrd.dump || rm $WORKDIR/initrd.dump
+	;;
+	#*)
+esac
+
+if [ -s $WORKDIR/initrd.dump ]; then
+	DOWNLOADINTRD=0
+	#mv $WORKDIR/initrd.dump $MAINDEST/${INITRDDUMP_FILENAME} || rm $MAINDEST/${INITRDDUMP_FILENAME}
+	ADDR=$(getaddr $WORKDIR/initrd.dump 44)
+	dd if=$WORKDIR/initrd.dump of=$MAINDEST/$INITRDDUMP_FILENAME bs=$ADDR count=1 && rm $WORKDIR/initrd.dump || rm $MAINDEST/$INITRDDUMP_FILENAME
+fi
+
+
+
+	if [ x$REBOOT_UPDATE = xyes ]; then
+		touch $MAINDEST/reboot.update
+		chmod 664 $MAINDEST/reboot.update
+	fi
+
+	if [ x$FORCE_UPDATE = xyes ]; then
+		touch $MAINDEST/force.update
+		chmod 664 $MAINDEST/force.update
+	fi
+
+	#cp -r $MAINDEST $EXTRA #copy the made back-up to images
+	if [ -f $MAINDEST/${ROOTFSDUMP_FILENAME} -a -f $MAINDEST/${KERNELDUMP_FILENAME} ]; then
+		echo " "
+		echo "USB Image created in:";echo $MAINDEST
+		#echo "# and there is made an extra copy in:"
+		#echo $EXTRA
+		echo " "
+		echo "To restore the image:"
+		echo "Place the USB-flash drive in the (front) USB-port and switch the receiver off and on with the powerswitch on the back of the receiver."
+		echo "Follow the instructions on the front-display."
+		echo "Please wait.... almost ready!"
+
+	else
+		echo "Image creation FAILED!"
+		echo "Probable causes could be:"
+		echo "-> no space left on back-up device"
+		echo "-> no writing permission on back-up device"
+		echo " "
+	fi
+
 umount /tmp/bi/root
 rmdir /tmp/bi/root
 rmdir /tmp/bi
-rm -rf "$WORKDIR"
+rm -rf $WORKDIR
 sleep 5
 END=$(date +%s)
 DIFF=$(( $END - $START ))
 MINUTES=$(( $DIFF/60 ))
 SECONDS=$(( $DIFF-(( 60*$MINUTES ))))
-if [ $SECONDS -le  9 ] ; then 
-	SECONDS="0$SECONDS"
-fi
-echo "BACKUP FINISHED IN $MINUTES.$SECONDS MINUTES\n"
-exit
+echo "Time required for this process:" ; echo "$MINUTES:$SECONDS"
+exit 
