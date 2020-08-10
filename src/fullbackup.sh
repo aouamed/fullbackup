@@ -287,11 +287,6 @@ fi
 
 
 
-	if [ x$REBOOT_UPDATE = xyes ]; then
-		touch $MAINDEST/reboot.update
-		chmod 664 $MAINDEST/reboot.update
-	fi
-
 	if [ x$FORCE_UPDATE = xyes ]; then
 		touch $MAINDEST/force.update
 		chmod 664 $MAINDEST/force.update
